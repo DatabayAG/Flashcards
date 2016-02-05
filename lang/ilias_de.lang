@@ -1,0 +1,88 @@
+//
+// Copyright (c) 2016 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nürnberg
+// GPLv2, see LICENSE 
+// 
+// German Language File for FlashCards Plugin
+//
+
+<!-- language file start -->
+obj_xflc#:#Lernkarten-Training
+objs_xflc#:#Lernkarten-Trainings
+obj_xflc_duplicate#:#Kopieren
+objs_xflc_duplicate#:#Lernkarten-Training kopieren
+obj_xflc_select#:#Lernkarten-Training auswählen
+xflc_add#:#Lernkarten-Training hinzufügen
+xflc_new#:#Neues Lernkarten-Training hinzufügen
+xflc_read#:#Lernkarten-Training verwenden
+xflc_write#:#Lernkarten-Training bearbeiten
+xflc_delete#:#Lernkarten-Training löschen
+xflc_visible#:#Lernkarten-Training ist sichtbar
+xflc_edit_permission#:#Rechteeinstellungen bearbeiten
+crs_create_xflc#:#Lernkarten-Training hinzufügen
+grp_create_xflc#:#Lernkarten-Training hinzufügen
+fold_create_xflc#:#Lernkarten-Training hinzufügen
+root_create_xflc#:#Lernkarten-Training hinzufügen
+cat_create_xflc#:#Lernkarten-Training hinzufügen
+content#:#Inhalt
+properties#:#Einstellungen
+edit_properties#:#Einstellungen bearbeiten
+title#:#Titel
+description#:#Beschreibung
+save#:#Speichern
+cancel#:#Abbrechen
+edit#:#Bearbeiten
+status#:#Status
+offline#:#Offline
+plugin_configuration#:#Plugin-Konfiguration
+saving_invoked#:#Das Speichern wurde aufgerufen. Dieses Plugin-Konfiguration speichert nichts.
+nothing_to_configure#:#Dieses Plugin benötigt keine Konfiguration.
+glossary_selection#:#Glossar auswählen
+glossary_selection_info#:#Wählen Sie das Glossar aus, dessen Inhalt trainiert werden soll. Eine Auswahl ist nur möglich, solange noch kein Benutzer mit dem Training begonnen hat. 
+select_glossary#:#Bitte wählen Sie das Glossar aus!
+glossary_mode#:#Glossar-Modus
+glossary_mode_term_definitions#:#Begriff - Definitionen
+glossary_mode_term_definitions_info#:#Der Begriff wird angezeigt und die Definitionen müssen erinnert werden.
+glossary_mode_definition_term#:#Definition - Begriff
+glossary_mode_definition_term_info#:#Eine Definition wird angezeigt und der Begriff muss erinnert werden.
+glossary_mode_definitions#:#Definitionen
+glossary_mode_definitions_info#:#Die erste Definition wird als Frage angezeigt. Die weiteren Definitionen müssen als Antwort erinnert werden.
+instructions#:#Anleitung
+instructions_info#:#Diese Anleitung wird den Lernenden auf der Startseite des Trainings angezeigt.
+count_cards#:#Karten
+actions#:#Aktionen
+start_training#:#Training starten
+cancel_training#:#Training abbrechen
+last_trained#:#Zuletzt trainiert
+glossary_not_readable#:#Das Glossar für dieses Training ist nicht lesbar. Bitte wenden Sie sich an den Ersteller dieses Trainings (siehe Info-Seite)!
+reset_training#:#Training zurücksetzen
+reset_training_confirmation#:#Das Zurücksetzen wird Ihren Lernstatus aller Karten löschen. Möchten Sie das Training zurücksetzen? 
+training_has_been_reset#:#Ihr Training wurde zurückgesetzt.
+update_from_glossary#:#Karten aus dem Glossar aktualisieren
+synchronized_with_glossary#:#Der Kartenstapel wurde aus dem Glossar aktualisiert.
+please_choose_training_mode#:#Bitte wählen Sie einen Trainingsmodus!
+leitner_box#:#Fach
+leitner_box_0_title#:#Startfach (täglich trainieren)
+leitner_box_x_title#:#%s mal erinnert
+leitner_fill_training#:#Startfach füllen
+leitner_startbox_full#:#Das Startfach hat seine Kapazität von %s Karten erreicht. Bitte trainieren Sie diese Karten, bevor sie es mit neuen Karten füllen.
+leitner_startbox_filled#:#Das Startfach wurde aufgefüllt (%s neu).
+leitner_training_not_available#:#Für das Fach %s ist kein Training verfügbar!
+leitner_training_canceled#:#Das Training wurde abgebrochen.
+leitner_training_finished#:#Das Training wurde beendet.
+leitner_status_text#:#Karte %s von %s
+leitner_set_known#:#Erinnert
+leitner_set_difficult#:#Schwierig
+leitner_set_not_known#:#Nicht erinnert
+leitner_capacity#:#Kapazität
+leitner_explanation#:#<p>Trainieren Sie die Karten im Startfach täglich.</p><ul><li>Eine erinnerte Karte wandert ein Fach weiter.</li><li>Eine schwierige Karte bleibt im gleichen Fach.</li><li>Eine nicht erinnerte Karte wandert zurück in das Startfach.</li></ul><p>Trainieren Sie jedes Fach, sobald seine Kapazität erreicht ist. Sie bekommen dies durch ein Uhr-Symbol angezeigt.
+glossary_definition#:#Definition
+glossary_definition_x#:#Definition %s
+glossary_term#:#Begriff
+question#:#Frage
+answer#:#Antwort
+answer_x#:#Antwort %s
+untrained_1#:#Es gibt eine neue Karte, die noch trainiert werden muss.
+untrained_x#:#Es gibt %s neue Karten, die noch trainiert werden müssen.
+leitner_hint_fill_startbox#:#Füllen Sie das Startfach mit neuen Karten auf. 
+leitner_hint_train_startbox#:#Trainieren Sie das Startfach, um Platz für neue Karten zu schaffen. 
+card_is_deleted#:#Diese Karte wurde gelöscht.

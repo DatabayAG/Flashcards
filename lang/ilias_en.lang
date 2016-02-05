@@ -1,0 +1,88 @@
+//
+// Copyright (c) 2016 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
+// GPLv2, see LICENSE 
+// 
+// English Language File for FlashCards Plugin
+//
+
+<!-- language file start -->
+obj_xflc#:#Flashcards Training
+objs_xflc#:#Flashcards Trainings
+obj_xflc_duplicate#:#Copy
+objs_xflc_duplicate#:#Copy Flashcards Training
+obj_xflc_select#:#Select Flashcards Training
+xflc_add#:#Add Flashcards Training
+xflc_new#:#Add New Flashcards Training
+xflc_read#:#Read access to Flashcards Training
+xflc_write#:#Edit Flashcards Training
+xflc_delete#:#Delete Flashcards Training
+xflc_visible#:#Flashcards Training is visible
+xflc_edit_permission#:#Change permission settings
+crs_create_xflc#:#Create Flashcards Training
+grp_create_xflc#:#Create Flashcards Training
+fold_create_xflc#:#Create Flashcards Training
+root_create_xflc#:#Create Flashcards Training
+cat_create_xflc#:#Create Flashcards Training
+content#:#Content
+properties#:#Properties
+edit_properties#:#Edit Properties
+title#:#Title
+description#:#Description
+save#:#Save
+cancel#:#Cancel
+edit#:#Edit
+status#:#Status
+offline#:#Offline
+plugin_configuration#:#Plugin Configuration
+saving_invoked#:#Save procedure has been executed. Please note that this screen does not save anything to DB.
+nothing_to_configure#:#This plugin does not need a configuration.
+glossary_selection#:#Glossary selection
+glossary_selection_info#:#Glossary that should be trained. A selection is only possible until the first learner has started with the training. 
+select_glossary#:#Please select the glossary
+glossary_mode#:#Glossary training mode
+glossary_mode_term_definitions#:#Term - Definitions
+glossary_mode_term_definitions_info#:#The term is shown and its definitions should be remembered.
+glossary_mode_definition_term#:#Definition - Term
+glossary_mode_definition_term_info#:#A definition is shown and the term should be remembered.
+glossary_mode_definitions#:#Definitions
+glossary_mode_definitions_info#:#The first definition is shown as a question. The other definitions have to be remembered.
+instructions#:#Instructions
+instructions_info#:#these istructions are shown to the learner at the starting page of the training.
+count_cards#:#Cards
+actions#:#Actions
+start_training#:#Start Training
+cancel_training#:#Cancel Training
+last_trained#:#Last Trained
+glossary_not_readable#:#The glossary used for this training is not readable. Please contact the creator of this training!
+reset_training#:#Reset the Training
+reset_training_confirmation#:#Resetting the training will delete your learning status of all flashcards. Do you really like to reset your training? 
+training_has_been_reset#:#The training has beeen reset
+update_from_glossary#:#Update Cards from Glossary
+synchronized_with_glossary#:#The stack of cards was updated from the glossary.
+please_choose_training_mode#:#Please choose a training mode!
+leitner_box#:#Box
+leitner_box_0_title#:#Startbox (train daily)
+leitner_box_x_title#:#%s times known
+leitner_fill_training#:#Fill Startbox
+leitner_startbox_full#:#The startbox has reached its size of %s cards. Plase train these cards before you fill the box with new cards.
+leitner_startbox_filled#:#The startbox is filled (%s new).
+leitner_training_not_available#:#The training of box %s is not available!
+leitner_training_canceled#:#The training has been canceled.
+leitner_training_finished#:#The training has been finished.
+leitner_status_text#:#Card %s of %s
+leitner_set_known#:#Known
+leitner_set_difficult#:#Difficult
+leitner_set_not_known#:#Not Known
+leitner_capacity#:#Capacity
+leitner_explanation#:#<p>Train the cards in the startbox daily.</p><ul><li>A known card moves one box forward.</li><li>A difficult card stays in its box.</li><li>An unknown card moves back to the startbox.</li></ul><p>Train each box as soon as its capacity is reached. You will see that indicated by a clock icon.
+glossary_definition#:#Definition
+glossary_definition_x#:#Definition %s
+glossary_term#:#Term
+question#:#Question
+answer#:#Answer
+answer_x#:#Answer %s
+untrained_1#:#There is one new card left to be trained. 
+untrained_x#:#There are %s new cards left to be trained.
+leitner_hint_fill_startbox#:#Fill the startbox with new cards. 
+leitner_hint_train_startbox#:#Train the startbox to get space for new cards. 
+card_is_deleted#:#Diese Karte wurde gelöscht.

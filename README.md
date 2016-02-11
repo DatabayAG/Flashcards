@@ -70,7 +70,7 @@ Version 1.3.1 (2016-02-11)
 * improved German language
 * added uninstall support
 
-Version 1.2.1 (2016-02-11)
+Version 1.2.2 (2016-02-11)
 ------------------------------
 * http://svn.ilias.de/svn/ilias/branches/fau/plugins/Flashcards
 * stable version for ILIAS 5.0

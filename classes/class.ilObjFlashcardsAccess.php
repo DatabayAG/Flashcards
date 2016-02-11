@@ -41,6 +41,14 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 
 		switch ($a_permission)
 		{
+			case "visible":
+				if (!self::checkOnline($a_obj_id) &&
+					!$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
+				{
+					return false;
+				}
+				break;
+
 			case "read":
 				if (!self::checkOnline($a_obj_id) &&
 					!$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))

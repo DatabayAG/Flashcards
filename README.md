@@ -33,12 +33,11 @@ As a Lecturer
 2. Edit the properties 
 3. Select a glossary from the repository
 4. Choose the training mode (asking for term, definition or second definition)
-5. Probably enter some extra definitions
-6. Set the training online and save the properties
-7. Click "Update Cards from Glossary" to fill the training with content
+5. Set the training online and save the properties
+6. Click "Update Cards from Glossary" to fill the training with content
 
 Changes to a term or definition in the glossary will automatically be reflected in the training.
-Newly added term in the glossary will not be automatically added to the training. 
+Newly added terms in the glossary will not automatically be added to the training.
 Use "Update Cards from Glossary" to add them.
 
 As a Learner

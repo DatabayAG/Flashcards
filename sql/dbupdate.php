@@ -121,4 +121,47 @@ $ilDB->addTableColumn("rep_robj_xflc_usage", "last_status",
 		'notnull' => false
 	));
 ?>
+<#5>
+<?php
+	/**
+	* Check whether type exists in object data, if not, create the type
+	* The type is normally created at plugin activation, see ilRepositoryObjectPlugin::beforeActivation()
+	*/
+	$set = $ilDB->query("SELECT obj_id FROM object_data WHERE type='typ' AND title = 'xflc'");
+	if ($rec = $ilDB->fetchAssoc($set))
+	{
+		$typ_id = $rec["obj_id"];
+	}
+	else
+	{
+		$typ_id = $ilDB->nextId("object_data");
+		$ilDB->manipulate("INSERT INTO object_data ".
+		"(obj_id, type, title, description, owner, create_date, last_update) VALUES (".
+		$ilDB->quote($typ_id, "integer").",".
+		$ilDB->quote("typ", "text").",".
+		$ilDB->quote("xflc", "text").",".
+		$ilDB->quote("Plugin Flashcards", "text").",".
+		$ilDB->quote(-1, "integer").",".
+		$ilDB->quote(ilUtil::now(), "timestamp").",".
+		$ilDB->quote(ilUtil::now(), "timestamp").
+		")");
+	}
+
+	/**
+	* Add new RBAC operations
+	*/
+	$operations = array('copy');
+	foreach ($operations as $operation)
+	{
+		$query = "SELECT ops_id FROM rbac_operations WHERE operation = ".$ilDB->quote($operation, 'text');
+		$res = $ilDB->query($query);
+		$row = $ilDB->fetchObject($res);
+		$ops_id = $row->ops_id;
+
+		$query = "INSERT INTO rbac_ta (typ_id, ops_id) VALUES ("
+		.$ilDB->quote($typ_id, 'integer').","
+		.$ilDB->quote($ops_id, 'integer').")";
+		$ilDB->manipulate($query);
+	}
+?>
 

@@ -14,6 +14,7 @@ obj_xflc_select#:#Select Flashcards Training
 xflc_add#:#Add Flashcards Training
 xflc_new#:#Add New Flashcards Training
 xflc_read#:#Read access to Flashcards Training
+xflc_copy#:#Copy Flashcards Training
 xflc_write#:#Edit Flashcards Training
 xflc_delete#:#Delete Flashcards Training
 xflc_visible#:#Flashcards Training is visible

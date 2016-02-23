@@ -34,6 +34,14 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 	{
 		global $ilUser, $ilAccess;
 
+		// TODO: very ugly workaround to support copy operations for the plugin in ILIAS 5.1
+		// check with 'isset' to prevent crashes when property is changed to 'private'
+		global $objDefinition;
+		if (isset($objDefinition->obj_data))
+		{
+			$objDefinition->obj_data['xflc']['allow_copy'] = 1;
+		}
+
 		if ($a_user_id == "")
 		{
 			$a_user_id = $ilUser->getId();

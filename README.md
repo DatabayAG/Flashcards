@@ -63,18 +63,20 @@ Version History
 * All versions for ILIAS 5.1 and higher are maintained in GitHub: https://github.com/ilifau/Flashcards
 * Former versions for ILIAS 5.0 and lower are maintained in ILIAS SVN: http://svn.ilias.de/svn/ilias/branches/fau/plugins
 
-Version 1.3.1 (2016-02-11)
+Version 1.3.2 (2016-02-23)
 --------------------------
 * stable version for ILIAS 5.1
 * fixed ignored offline setting
 * improved German language
 * added uninstall support
+* added "copy permission" (needs to be initialized in permission system)
 
-Version 1.2.2 (2016-02-11)
+Version 1.2.3 (2016-02-19)
 ------------------------------
 * http://svn.ilias.de/svn/ilias/branches/fau/plugins/Flashcards
 * stable version for ILIAS 5.0
 * fixed ignored offline setting
+* added "copy permission" (needs to be initialized in permission system)
 * updated version number, icons and compatibility
 
 Version 1.1.2 (2016-02-11)

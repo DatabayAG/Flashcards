@@ -14,6 +14,7 @@ obj_xflc_select#:#Lernkarten-Training auswählen
 xflc_add#:#Lernkarten-Training hinzufügen
 xflc_new#:#Neues Lernkarten-Training hinzufügen
 xflc_read#:#Lernkarten-Training verwenden
+xflc_copy#:#Lernkarten-Training kopieren
 xflc_write#:#Lernkarten-Training bearbeiten
 xflc_delete#:#Lernkarten-Training löschen
 xflc_visible#:#Lernkarten-Training ist sichtbar

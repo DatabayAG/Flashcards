@@ -26,6 +26,7 @@ class ilObjFlashcardsListGUI extends ilObjectPluginListGUI
 	{
 		$this->setType("xflc");
 		$this->timings_enabled = false;
+		$this->copy_enabled = true;
 	}
 	
 	/**

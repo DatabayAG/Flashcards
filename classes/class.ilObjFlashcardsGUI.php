@@ -13,7 +13,7 @@ include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
 * $Id$
 *
 * @ilCtrl_isCalledBy ilObjFlashcardsGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
-* @ilCtrl_Calls ilObjFlashcardsGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilPropertyFormGUI
+* @ilCtrl_Calls ilObjFlashcardsGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonactionDispatcherGUI
 * @ilCtrl_Calls ilObjFlashcardsGUI: ilPropertyFormGUI, ilPageObjectGUI
 *
 */

@@ -5,7 +5,7 @@
  */
  
 /**
- * FlashCards plugin: base parameters
+ * Flashcards plugin: base parameters
  *
  * @author Fred Neumann <fred.neumann@fim.uni-erlangen.de>
  * @version $Id$

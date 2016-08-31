@@ -15,9 +15,9 @@ When you download the Plugin as ZIP file from GitHub, please rename the extracte
 1. Copy the Flashcards directory to your ILIAS installation at the followin path (create subdirectories, if neccessary):
 Customizing/global/plugins/Services/Repository/RepositoryObject/
 2. Go to Administration > Plugins
-3. Click "Update" for the FlashCards plugin
-4. Click "Activate" for the FlashCards plugin
-5. Click "Refresh Languages" for the FlashCards plugin
+3. Click "Update" for the Flashcards plugin
+4. Click "Activate" for the Flashcards plugin
+5. Click "Refresh Languages" for the Flashcards plugin
 
 There is nothing to configure for this plugin.
 
@@ -29,7 +29,7 @@ The contents are trained as flashcards according to the training scheme of Sebas
 
 As a Lecturer
 
-1. Add a new "FlashCards Training" object in the repository
+1. Add a new "Flashcards Training" object in the repository
 2. Edit the properties 
 3. Select a glossary from the repository
 4. Choose the training mode (asking for term, definition or second definition)

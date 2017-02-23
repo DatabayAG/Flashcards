@@ -204,6 +204,30 @@ class ilFlashcard
 			$ilDB->manipulate($query);
 		}
 	}
+
+	/**
+	 * Map the ids of glossary terms when the object is cloned with its glossary
+	 * @param integer	$a_obj_id
+	 * @param array		$a_mapping		old_term_id => new_term_id
+	 */
+	public static function _updateTermIds($a_obj_id, $a_mapping)
+	{
+		/* @var ilDB $ilDB */
+		global $ilDB;
+
+		foreach ($a_mapping as $old_term_id => $new_term_id)
+		{
+			$ilDB->update('rep_robj_xflc_cards',
+				array(
+					'term_id' => array('integer', $new_term_id)
+				),
+				array(
+					'obj_id' => array('integer', $a_obj_id),
+					'term_id' => array('integer', $old_term_id)
+				)
+			);
+		}
+	}
 }
 
 ?>

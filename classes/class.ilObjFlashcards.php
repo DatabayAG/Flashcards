@@ -175,8 +175,49 @@ class ilObjFlashcards extends ilObjectPlugin
 		$this->plugin->includeClass('class.ilFlashcard.php');
 		ilFlashcard::_cloneAll($this->getId(), $new_obj->getId());
 	}
-	
-		
+
+	/**
+	 * Clone dependencies
+	 * This updates the glossary ref_id and term_ids
+	 * It needs a patch in ilObjGlossary::cloneObject()
+	 *
+	 * @param integer $a_target_id
+	 * @param integer $a_copy_id
+	 * @return bool
+	 */
+	public function cloneDependencies($a_target_id,$a_copy_id)
+	{
+		global $ilDB;
+
+		parent::cloneDependencies($a_target_id,$a_copy_id);
+
+		// note: $this is the original object
+
+		include_once('Services/CopyWizard/classes/class.ilCopyWizardOptions.php');
+		$cp_options = ilCopyWizardOptions::_getInstance($a_copy_id);
+		if(!$cp_options->isRootNode($this->getRefId()))
+		{
+			$mappings = $cp_options->getMappings();
+
+			if (isset($mappings[$this->getGlossaryRefId()]))
+			{
+				$new_obj_id = ilObject::_lookupObjId($a_target_id);
+				$ilDB->update('rep_robj_xflc_data',
+					array('glossary_ref_id' => array('integer', $mappings[$this->getGlossaryRefId()])),
+					array('obj_id' => array('integer', $new_obj_id))
+				);
+
+				if (!empty($mappings['GloTerms_'.$this->getGlossaryRefId()]))
+				{
+					$this->plugin->includeClass('class.ilFlashcard.php');
+					ilFlashcard::_updateTermIds($new_obj_id, $mappings['GloTerms_'.$this->getGlossaryRefId()]);
+				}
+			}
+		}
+		return true;
+	}
+
+
 	/**
 	* Set online
 	*

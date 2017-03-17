@@ -1,7 +1,7 @@
 ILIAS Flashcards Training plugin
 ================================
 
-Copyright (c) 2016 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg, GPLv2, see LICENSE
+Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg, GPLv2, see LICENSE
 
 - Author:   Fred Neumann <fred.neumann@ili.fau.de>
 - Forum: http://www.ilias.de/docu/goto_docu_frm_3474_1945.html
@@ -17,7 +17,6 @@ Customizing/global/plugins/Services/Repository/RepositoryObject/
 2. Go to Administration > Plugins
 3. Click "Update" for the Flashcards plugin
 4. Click "Activate" for the Flashcards plugin
-5. Click "Refresh Languages" for the Flashcards plugin
 
 There is nothing to configure for this plugin.
 
@@ -61,6 +60,9 @@ Version History
 
 * All versions for ILIAS 5.1 and higher are maintained in GitHub: https://github.com/ilifau/Flashcards
 * Former versions for ILIAS 5.0 and lower are maintained in ILIAS SVN: http://svn.ilias.de/svn/ilias/branches/fau/plugins
+
+Version 1.3.4 (2016-03-17)
+* support for ILIAS 5.2
 
 Version 1.3.3 (2016-03-07)
 * support of timings

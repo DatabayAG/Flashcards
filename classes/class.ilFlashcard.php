@@ -192,7 +192,6 @@ class ilFlashcard
 		$query = " SELECT card_id, obj_id, term_id"
 				. " FROM rep_robj_xflc_cards"
 				. " WHERE obj_id = " . $ilDB->quote($a_source_id, "integer");
-				
 		$result = $ilDB->query($query);
 		while($row = $ilDB->fetchAssoc($result))
 		{
@@ -200,8 +199,6 @@ class ilFlashcard
 				array( 	"card_id" 	=> array("integer", $ilDB->nextId("rep_robj_xflc_cards")),
 						"obj_id"	=> array("integer", $a_target_id),
 						"term_id"	=> array("integer", $row["term_id"])));
-
-			$ilDB->manipulate($query);
 		}
 	}
 

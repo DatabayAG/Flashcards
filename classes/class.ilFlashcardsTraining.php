@@ -51,14 +51,14 @@ class ilFlashcardsTraining
 	/** 
 	 * Constructor
 	 * 
-	 * @param	object	the flaschcards object
-	 * @param	object	the user
+	 * @param	ilObjFlashCards		$a_object	the flaschcards object
+	 * @param	ilObjUser			$a_user		the user
 	 */
 	function __construct(ilObjFlashCards $a_object, ilObjUser $a_user)
 	{
 		// initialize references to the mostly used objects
 		$this->object = $a_object;
-		$this->plugin = $a_object->plugin;		
+		$this->plugin = $a_object->getPlugin();
 		$this->user = $a_user;
 		
 		// read the cards used in this training
@@ -88,7 +88,7 @@ class ilFlashcardsTraining
 	
 	/**
 	 * set the cards used in the training
-	 * @param  array 	card_id => ilFlashcardUsage
+	 * @param  array 	$a_usages	card_id => ilFlashcardUsage
 	 */
 	public function setUsedCards($a_usages)
 	{
@@ -126,8 +126,8 @@ class ilFlashcardsTraining
 	/**
 	 * add a card usage
 	 * 
-	 * @param	integer		card id
-	 * @param	integer		usage status
+	 * @param	integer		$a_card_id
+	 * @param	integer		$a_status	usage status
 	 * @return	object		ilFlashcardUsage
 	 */
 	public function addCardUsage($a_card_id, $a_status = 0)
@@ -168,8 +168,6 @@ class ilFlashcardsTraining
 	
 	/**
 	 * reset the session values for this training
-	 * @param string		name 
-	 * @param mixed			default value
 	 */
 	public function resetSessionValues()
 	{
@@ -180,8 +178,9 @@ class ilFlashcardsTraining
 	
 	/**
 	 * get a session value for this training
-	 * @param string		name 
-	 * @param mixed			default value
+	 * @param string		$a_name
+	 * @param mixed			$a_default
+	 * @return mixed
 	 */
 	public function getSessionValue($a_name, $a_default = null)
 	{
@@ -192,8 +191,8 @@ class ilFlashcardsTraining
 	
 	/**
 	 * get a session value for this training
-	 * @param string		name 
-	 * @param mixed			value
+	 * @param string		$a_name
+	 * @param mixed			$a_value
 	 */
 	public function setSessionValue($a_name, $a_value)
 	{

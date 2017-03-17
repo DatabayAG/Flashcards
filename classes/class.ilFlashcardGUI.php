@@ -37,7 +37,18 @@ class ilFlashcardGUI
 	 */
 	function getCardForTrainingHTML()
 	{
-		require_once("./Services/Style/classes/class.ilObjStyleSheet.php");
+
+		if (file_exists("./Services/Style/classes/class.ilObjStyleSheet.php"))
+		{
+			// up to 5.1
+			include_once("./Services/Style/classes/class.ilObjStyleSheet.php");
+		}
+		else
+		{
+			// from 5.2
+			include_once("./Services/Style/Content/classes/class.ilObjStyleSheet.php");
+		}
+
 		$this->tpl->addCss(ilObjStyleSheet::getContentStylePath(0));
 		
 		// get the card pages to be displayed

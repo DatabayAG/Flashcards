@@ -26,8 +26,18 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	{
 		return "xflc";
 	}
-	
-	
+
+	/**
+	 * Get the plugin object (made public)
+	 * @return object
+	 * @throws ilPluginException
+	 */
+	public function getPlugin()
+	{
+		return parent::getPlugin();
+	}
+
+
 	/**
 	* Handles all commmands of this class, centralizes permission checks
 	* 

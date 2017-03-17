@@ -15,16 +15,18 @@ abstract class ilFlashcardsTrainingGUI
 {
 	/** 
 	 * Constructor
+	 * @param ilObjFlashcardsGUI $a_parent_gui
 	 */
 	function __construct($a_parent_gui)
 	{
+		global $ilCtrl, $lng, $tpl;
 		// initialize references to the mostly used objects
 		$this->parent_gui = $a_parent_gui;
 		$this->object = $a_parent_gui->object;
-		$this->plugin = $a_parent_gui->plugin;
-		$this->lng = $a_parent_gui->lng;
-		$this->ctrl = $a_parent_gui->ctrl;
-		$this->tpl = $a_parent_gui->tpl;
+		$this->plugin = $a_parent_gui->getPlugin();
+		$this->lng = $lng;
+		$this->ctrl = $ilCtrl;
+		$this->tpl = $tpl;
 		$this->training = $this->getTrainingObject();
 	}
 	

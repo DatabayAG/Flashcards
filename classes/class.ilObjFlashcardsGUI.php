@@ -32,9 +32,9 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	 * @return object
 	 * @throws ilPluginException
 	 */
-	public function getPlugin()
+	public function getMyPlugin()
 	{
-		return parent::getPlugin();
+		return $this->plugin;
 	}
 
 
@@ -284,6 +284,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		$values["title"] = $this->object->getTitle();
 		$values["description"] = $this->object->getDescription();
 		$values["online"] = $this->object->getOnline();
+
 		$values["glossary_ref_id"] = $this->object->getGlossaryRefId();
 		$values["glossary_mode"] = $this->object->getGlossaryMode();
 		$values["instructions"] = $this->object->getInstructions();
@@ -300,6 +301,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 			$this->object->setTitle($this->form->getInput("title"));
 			$this->object->setDescription($this->form->getInput("description"));
 			$this->object->setOnline($this->form->getInput("online"));
+
 			$this->object->setGlossaryRefId($this->form->getInput("glossary_ref_id"));
 			$this->object->setGlossaryMode($this->form->getInput("glossary_mode"));
 			$this->object->setInstructions($this->form->getInput("instructions"));

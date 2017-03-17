@@ -88,9 +88,9 @@ class ilObjFlashcards extends ilObjectPlugin
 	 * @return object
 	 * @throws ilPluginException
 	 */
-	public function getPlugin()
+	public function getMyPlugin()
 	{
-		return parent::getPlugin();
+		return $this->plugin;
 	}
 
 	/**

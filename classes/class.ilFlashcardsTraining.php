@@ -58,7 +58,7 @@ class ilFlashcardsTraining
 	{
 		// initialize references to the mostly used objects
 		$this->object = $a_object;
-		$this->plugin = $a_object->getPlugin();
+		$this->plugin = $a_object->getMyPlugin();
 		$this->user = $a_user;
 		
 		// read the cards used in this training

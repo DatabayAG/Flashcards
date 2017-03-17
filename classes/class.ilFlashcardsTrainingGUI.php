@@ -23,7 +23,7 @@ abstract class ilFlashcardsTrainingGUI
 		// initialize references to the mostly used objects
 		$this->parent_gui = $a_parent_gui;
 		$this->object = $a_parent_gui->object;
-		$this->plugin = $a_parent_gui->getPlugin();
+		$this->plugin = $a_parent_gui->getMyPlugin();
 		$this->lng = $lng;
 		$this->ctrl = $ilCtrl;
 		$this->tpl = $tpl;

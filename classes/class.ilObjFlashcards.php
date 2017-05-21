@@ -217,10 +217,10 @@ class ilObjFlashcards extends ilObjectPlugin
 					array('obj_id' => array('integer', $new_obj_id))
 				);
 
-				if (!empty($mappings['GloTerms_'.$this->getGlossaryRefId()]))
+				if (!empty($mappings[$this->getGlossaryRefId().'_glo_terms']))
 				{
 					$this->plugin->includeClass('class.ilFlashcard.php');
-					ilFlashcard::_updateTermIds($new_obj_id, $mappings['GloTerms_'.$this->getGlossaryRefId()]);
+					ilFlashcard::_updateTermIds($new_obj_id, $mappings[$this->getGlossaryRefId().'_glo_terms']);
 				}
 			}
 		}

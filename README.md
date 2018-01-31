@@ -61,7 +61,11 @@ Version History
 * All versions for ILIAS 5.1 and higher are maintained in GitHub: https://github.com/ilifau/Flashcards
 * Former versions for ILIAS 5.0 and lower are maintained in ILIAS SVN: http://svn.ilias.de/svn/ilias/branches/fau/plugins
 
-Version 1.3.4 (2016-03-17)
+Version 1.3.5 (2018-01-31)
+* fixed display of "last trained" in ILIAS >= 5.2.10
+* adapted mapping of copied terms to ILIAS core (5/2017)
+
+Version 1.3.4 (2017-03-17)
 * support for ILIAS 5.2
 
 Version 1.3.3 (2016-03-07)

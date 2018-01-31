@@ -136,7 +136,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 			$data[$box] = array("box" => (int) $box,
 								"capacity" => (int) $this->getBoxCapacity($box),
 								"count" => (int) $this->countCardsInBox($box),
-								"last_trained" => new ilDateTime());
+								"last_trained" => null);
 		}
 		
 		
@@ -145,11 +145,21 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 		// of all cards with box as last status
 		foreach ((array) $this->getUsedCards() as $usage)
 		{
-			$box = $usage->getLastStatus();	
-			if (isset($data[$box])
-				and ilDateTime::_before($data[$box]["last_trained"], $usage->getLastChecked()))
+			$box = $usage->getLastStatus();
+			if (isset($data[$box]))
 			{
-				$data[$box]["last_trained"] = $usage->getLastChecked();
+				if (!isset($data[$box]['last_trained']) || ilDateTime::_before($data[$box]["last_trained"], $usage->getLastChecked()))
+				{
+					$data[$box]["last_trained"] = $usage->getLastChecked();
+				}
+			}
+		}
+
+		for ($box = 0; $box <= $this->getLastBox(); $box++)
+		{
+			if (!isset($data[$box]['last_trained']))
+			{
+				$data[$box]['last_trained'] = new ilDateTime();
 			}
 		}
 		

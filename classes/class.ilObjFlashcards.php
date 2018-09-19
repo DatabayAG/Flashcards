@@ -1,10 +1,8 @@
 <?php
 /**
- * Copyright (c) 2016 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
+ * Copyright (c) 2018 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
  * GPLv2, see LICENSE
  */
-
-include_once("./Services/Repository/classes/class.ilObjectPlugin.php");
 
 /**
 * Application class for flashcards training object.
@@ -174,8 +172,6 @@ class ilObjFlashcards extends ilObjectPlugin
 	*/
 	protected function doCloneObject($new_obj, $a_target_id, $a_copy_id = null)
 	{
-		global $ilDB;
-		
 		$new_obj->setOnline($this->getOnline());
 		$new_obj->setGlossaryRefId($this->getGlossaryRefId());
 		$new_obj->setGlossaryMode($this->getGlossaryMode());

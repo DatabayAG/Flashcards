@@ -80,29 +80,3 @@ Version 1.3.2 (2016-02-23)
 * improved German language
 * added uninstall support
 * added "copy permission" (needs to be initialized in permission system)
-
-Version 1.2.3 (2016-02-19)
-* http://svn.ilias.de/svn/ilias/branches/fau/plugins/Flashcards
-* stable version for ILIAS 5.0
-* fixed ignored offline setting
-* added "copy permission" (needs to be initialized in permission system)
-* updated version number, icons and compatibility
-
-Version 1.1.2 (2016-02-11)
-* http://svn.ilias.de/svn/ilias/branches/fau/plugins/Flashcards-1.1.x
-* stable version for ILIAS 4.4
-* fixed ignored offline setting
-* updated version number and README
-
-Version 1.0.1 (2013-07-04)
-* http://svn.ilias.de/svn/ilias/branches/fau/plugins/Flashcards-1.0.x
-* stable version for ILIAS 4.3
-* Fixed typos in German lang file
-* Fixed default glossary mode
-* Improved glossary selection
-* Added screen ids for online help
-* Currently only the Leitner training mode is supported
-* Currently cards refer the glossary content but the training filled manually
-* ToDo: Import and Export (e.g. for Anki) missing
-* ToDo: Learning progress not supported
-* ToDo: Timings are disabled

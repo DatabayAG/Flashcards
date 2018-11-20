@@ -59,7 +59,6 @@ Version History
 ===============
 
 * All versions for ILIAS 5.1 and higher are maintained in GitHub: https://github.com/ilifau/Flashcards
-* Former versions for ILIAS 5.0 and lower are maintained in ILIAS SVN: http://svn.ilias.de/svn/ilias/branches/fau/plugins
 
 Version 1.3.6 (2018-02-07)
 * beta support for ILIAS 5.3

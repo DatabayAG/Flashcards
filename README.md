@@ -62,6 +62,10 @@ Version History
 * Versions up to 1.3.x are in the 'master' branch
 * Version 1.4.x for ILIAS 5.3 is in the 'master-ilias53' branch
 
+Version 1.5.0 (2019-07-15)
+* Support for ILIAS 5.4
+* Drop support for ILIAS 5.2 and 5.3
+
 Version 1.4.0 (2018-09-19)
 * Support for ILIAS 5.3
 * Drop support for ILIAS 5.1 and 5.2

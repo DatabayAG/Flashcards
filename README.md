@@ -85,4 +85,3 @@ Version 1.3.2 (2016-02-23)
 * improved German language
 * added uninstall support
 * added "copy permission" (needs to be initialized in permission system)
-

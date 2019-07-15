@@ -61,6 +61,7 @@ Version History
 * All versions for ILIAS 5.1 and higher are maintained in GitHub: https://github.com/ilifau/Flashcards
 * Versions up to 1.3.x are in the 'master' branch
 * Version 1.4.x for ILIAS 5.3 is in the 'master-ilias53' branch
+* Version 1.5.x for ILIAS 5.4 is in the 'master-ilias54' branch
 
 Version 1.5.0 (2019-07-15)
 * Support for ILIAS 5.4

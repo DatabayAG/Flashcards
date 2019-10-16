@@ -63,6 +63,9 @@ Version History
 * Version 1.4.x for ILIAS 5.3 is in the 'master-ilias53' branch
 * Version 1.5.x for ILIAS 5.4 is in the 'master-ilias54' branch
 
+Version 1.5.1 (2019-1016)
+* Fixed compatibility issue with PHP 7.3 (thanks to Fadi)
+
 Version 1.5.0 (2019-07-15)
 * Support for ILIAS 5.4
 * Drop support for ILIAS 5.2 and 5.3

@@ -1,16 +1,13 @@
 <?php
 /**
- * Copyright (c) 2016 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
+ * Copyright (c) 2018 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
  * GPLv2, see LICENSE
  */
-
-include_once("./Services/Repository/classes/class.ilObjectPluginAccess.php");
 
 /**
 * Access/Condition checking for Flashcards Training object
 *
 * @author 		Fred Neumann <fred.neumann@fim.uni-erlangen.de>
-* @version $Id$
 */
 class ilObjFlashcardsAccess extends ilObjectPluginAccess
 {
@@ -32,26 +29,18 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 	*/
 	function _checkAccess($a_cmd, $a_permission, $a_ref_id, $a_obj_id, $a_user_id = "")
 	{
-		global $ilUser, $ilAccess;
+		global $DIC;
 
-		// TODO: very ugly workaround to support copy operations for the plugin in ILIAS 5.1
-		// check with 'isset' to prevent crashes when property is changed to 'private'
-		global $objDefinition;
-		if (isset($objDefinition->obj_data))
+		if (empty($a_user_id))
 		{
-			$objDefinition->obj_data['xflc']['allow_copy'] = 1;
-		}
-
-		if ($a_user_id == "")
-		{
-			$a_user_id = $ilUser->getId();
+			$a_user_id = $DIC->user()->getId();
 		}
 
 		switch ($a_permission)
 		{
 			case "visible":
 				if (!self::checkOnline($a_obj_id) &&
-					!$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
+					!$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
 				{
 					return false;
 				}
@@ -59,7 +48,7 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 
 			case "read":
 				if (!self::checkOnline($a_obj_id) &&
-					!$ilAccess->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
+					!$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
 				{
 					return false;
 				}
@@ -74,7 +63,8 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 	*/
 	static function checkOnline($a_id)
 	{
-		global $ilDB;
+		global $DIC;
+		$ilDB = $DIC->database();
 		
 		$set = $ilDB->query("SELECT is_online FROM rep_robj_xflc_data ".
 			" WHERE obj_id = ".$ilDB->quote($a_id, "integer")

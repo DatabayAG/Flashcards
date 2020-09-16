@@ -23,13 +23,13 @@ There is nothing to configure for this plugin.
 Usage
 -----
 This plugin provides a training object for glossary contents.
-Therefore you should have glossary with contents avaliable in ILIAS. 
+Therefore you should have glossary with contents avaliable in ILIAS.
 The contents are trained as flashcards according to the training scheme of Sebasian Leitner.
 
 As a Lecturer
 
 1. Add a new "Flashcards Training" object in the repository
-2. Edit the properties 
+2. Edit the properties
 3. Select a glossary from the repository
 4. Choose the training mode (asking for term, definition or second definition)
 5. Set the training online and save the properties
@@ -59,6 +59,20 @@ Version History
 ===============
 
 * All versions for ILIAS 5.1 and higher are maintained in GitHub: https://github.com/ilifau/Flashcards
+* Versions up to 1.3.x are in the 'master' branch
+* Version 1.4.x for ILIAS 5.3 is in the 'master-ilias53' branch
+* Version 1.5.x for ILIAS 5.4 is in the 'master-ilias54' branch
+
+Version 1.5.1 (2019-1016)
+* Fixed compatibility issue with PHP 7.3 (thanks to Fadi)
+
+Version 1.5.0 (2019-07-15)
+* Support for ILIAS 5.4
+* Drop support for ILIAS 5.2 and 5.3
+
+Version 1.4.0 (2018-09-19)
+* Support for ILIAS 5.3
+* Drop support for ILIAS 5.1 and 5.2
 
 Version 1.3.6 (2018-02-07)
 * beta support for ILIAS 5.3
@@ -78,4 +92,8 @@ Version 1.3.2 (2016-02-23)
 * fixed ignored offline setting
 * improved German language
 * added uninstall support
+<<<<<<< HEAD
 * added "copy permission" (needs to be initialized in permission system)
+=======
+* added "copy permission" (needs to be initialized in permission system)
+>>>>>>> origin/master-ilias54

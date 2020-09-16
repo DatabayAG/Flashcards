@@ -108,7 +108,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 	 */
 	public function countCardsInBox($a_box)
 	{
-		return count($this->boxes[$a_box]);
+		return count((array) $this->boxes[$a_box]);
 	}
 		
 	

@@ -1,12 +1,9 @@
 <?php
 /**
- * Copyright (c) 2016 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
+ * Copyright (c) 2018 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg
  * GPLv2, see LICENSE
  */
 
-
-include_once("./Services/Repository/classes/class.ilRepositoryObjectPlugin.php");
- 
 /**
 * Flashcards training object plugin
 *
@@ -30,5 +27,16 @@ class ilFlashcardsPlugin extends ilRepositoryObjectPlugin
 		$ilDB->dropTable('rep_robj_xflc_cards');
 		$ilDB->dropTable('rep_robj_xflc_usage');
 	}
+
+	/**
+	 * decides if this repository plugin can be copied
+	 *
+	 * @return bool
+	 */
+	public function allowCopy()
+	{
+		return true;
+	}
+
 }
 ?>

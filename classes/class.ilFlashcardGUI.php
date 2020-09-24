@@ -111,7 +111,7 @@ class ilFlashcardGUI
 		{
 			$page_gui = new ilPageObjectGUI("gdf", $definition["id"]);			
 			$page_gui->setTemplateOutput(false);
-			$page_gui->setOutputMode(IL_PAGE_PRESENTATION);
+			$page_gui->setOutputMode(ilPageObjectGUI::PRESENTATION);
 			$page_gui->setEnabledTabs(false);
 			
 			$def_pages[] = array( "title" => sprintf($def_title, $i++),

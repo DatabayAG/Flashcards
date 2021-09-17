@@ -63,6 +63,12 @@ Version History
 * Version 1.4.x for ILIAS 5.3 is in the 'master-ilias53' branch
 * Version 1.5.x for ILIAS 5.4 is in the 'master-ilias54' branch
 * Version 1.6.x for ILIAS 6 is in the 'master-ilias6' branch
+* Version 1.7.x for ILIAS 7 is in the 'main-ilias7' branch
+
+Version 1.7.0 (2021-09-17)
+* Beta version for ILIAS 7
+* Mainly working
+* An occasional issue with double presentation of cards in a training session is reported by Uni Freiburg
 
 Version 1.6.0 (2020-09-24)
 * Compatibility with ILIAS 6 (thanks to @chsfx)

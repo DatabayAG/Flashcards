@@ -132,16 +132,28 @@ abstract class ilFlashcardsTrainingGUI
 		require_once("./Services/UIComponent/Toolbar/classes/class.ilToolbarGUI.php");
 		$toolbar = new ilToolbarGUI();
 		$toolbar->setFormAction($this->ctrl->getFormAction($this));
+		$toolbar->setPreventDoubleSubmission(true);
+
 		$actions = $this->getCardActions($card_id);
 		foreach($actions as $action)
 		{
-			$toolbar->addFormButton($action["txt"], $action["cmd"]);
+			$button = ilSubmitButton::getInstance();
+			$button->setCaption($action["txt"], false);
+			$button->setCommand($action["cmd"]);
+			$button->setOmitPreventDoubleSubmission(false);
+			$toolbar->addButtonInstance($button);
 		}
 		if (count($actions) > 1)
 		{
 			$toolbar->addSeparator();
 		}
-		$toolbar->addFormButton($this->txt("cancel_training"), "cancelTraining");
+
+		$button = ilSubmitButton::getInstance();
+		$button->setCaption($this->txt("cancel_training"), false);
+		$button->setCommand("cancelTraining");
+		$button->setOmitPreventDoubleSubmission(false);
+		$toolbar->addButtonInstance($button);
+
 		$tpl->setVariable("CARD_ACTIONS", $toolbar->getHTML());
 		
 		$this->tpl->setContent($tpl->get());

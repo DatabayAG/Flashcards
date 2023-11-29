@@ -13,19 +13,17 @@
 */
 class ilFlashcardsPlugin extends ilRepositoryObjectPlugin
 {
-	function getPluginName()
+	function getPluginName(): string
 	{
 		return "Flashcards";
 	}
 
 
-	protected function uninstallCustom()
+	protected function uninstallCustom(): void
 	{
-		global $ilDB;
-
-		$ilDB->dropTable('rep_robj_xflc_data');
-		$ilDB->dropTable('rep_robj_xflc_cards');
-		$ilDB->dropTable('rep_robj_xflc_usage');
+		$this->db->dropTable('rep_robj_xflc_data');
+		$this->db->dropTable('rep_robj_xflc_cards');
+		$this->db->dropTable('rep_robj_xflc_usage');
 	}
 
 	/**
@@ -33,7 +31,7 @@ class ilFlashcardsPlugin extends ilRepositoryObjectPlugin
 	 *
 	 * @return bool
 	 */
-	public function allowCopy()
+	public function allowCopy(): bool
 	{
 		return true;
 	}

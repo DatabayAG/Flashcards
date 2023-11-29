@@ -4,8 +4,6 @@
  * GPLv2, see LICENSE
  */
 
-include_once("./Services/Form/classes/class.ilRepositorySelectorInputGUI.php");
-
 /**
  * extension of the respository selector
  * allows selection of glossary objects
@@ -42,7 +40,7 @@ class ilGlossarySelectorInputGUI extends ilRepositorySelectorInputGUI
 	* Render item
 	* (modified class name in links and respect disabled status)
 	*/
-	function render($a_mode = "property_form")
+	function render($a_mode = "property_form"): string
 	{
 		global $lng, $ilCtrl, $ilObjDataCache, $tree;
 		
@@ -52,7 +50,7 @@ class ilGlossarySelectorInputGUI extends ilRepositorySelectorInputGUI
 		
 		$tpl->setVariable("POST_VAR", $this->getPostVar());
 		$tpl->setVariable("ID", $this->getFieldId());
-		$tpl->setVariable("PROPERTY_VALUE", ilUtil::prepareFormOutput($this->getValue()));
+		$tpl->setVariable("PROPERTY_VALUE", ilLegacyFormElementsUtil::prepareFormOutput($this->getValue()));
 
 		// modification:
 		if (!$this->getDisabled())
@@ -89,7 +87,6 @@ class ilGlossarySelectorInputGUI extends ilRepositorySelectorInputGUI
 		if ($this->getValue() > 0 && $this->getValue() != ROOT_FOLDER_ID)
 		{
 			// modification:
-			require_once("Services/Locator/classes/class.ilLocatorGUI.php");
 			$loc_gui = new ilLocatorGUI();
 			$loc_gui->addContextItems($this->getValue());			
 			$tpl->setVariable("TXT_ITEM", $loc_gui->getHTML());

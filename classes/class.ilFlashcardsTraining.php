@@ -71,7 +71,6 @@ class ilFlashcardsTraining
 	 */
 	private function readUsedCards()
 	{
-		$this->plugin->inCludeClass("class.ilFlashcardUsage.php");
 		$this->setUsedCards(ilFlashcardUsage::_getAll($this->object->getId(), $this->user->getId()));
 	}
 	

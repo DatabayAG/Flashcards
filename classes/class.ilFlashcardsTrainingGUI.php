@@ -13,20 +13,32 @@
  */
 abstract class ilFlashcardsTrainingGUI
 {
+
+	protected ilObjFlashcardsGUI $a_parent_gui;
+	protected ilObjFlashcards $object;
+	protected ilFlashcardsPlugin $plugin;
+	protected ilLanguage $lng;
+	protected ilCtrlInterface $ctrl;
+	protected ilGlobalTemplateInterface $tpl;
+	protected ilFlashcardsTraining $training;
+	
+	
 	/** 
 	 * Constructor
 	 * @param ilObjFlashcardsGUI $a_parent_gui
 	 */
 	function __construct($a_parent_gui)
 	{
-		global $ilCtrl, $lng, $tpl;
+		global $DIC;
+		
 		// initialize references to the mostly used objects
 		$this->parent_gui = $a_parent_gui;
-		$this->object = $a_parent_gui->object;
+		$this->object = $a_parent_gui->getMyObject();
 		$this->plugin = $a_parent_gui->getMyPlugin();
-		$this->lng = $lng;
-		$this->ctrl = $ilCtrl;
-		$this->tpl = $tpl;
+		$this->lng = $DIC->language();
+		$this->ctrl = $DIC->ctrl();
+		$this->tpl = $DIC->ui()->mainTemplate();
+		$this->user = $DIC->user();
 		$this->training = $this->getTrainingObject();
 	}
 	
@@ -39,9 +51,8 @@ abstract class ilFlashcardsTrainingGUI
 	
 	/**
 	 * Initialize and return the training object
-	 * @return	object	descendant of ilFlashcardsTraining
 	 */
-	abstract protected function getTrainingObject();
+	abstract protected function getTrainingObject(): ilFlashcardsTraining;
 	
 	
 	/**
@@ -76,7 +87,7 @@ abstract class ilFlashcardsTrainingGUI
 	protected function resetTraining()
 	{
 		$this->training->reset();
-		ilUtil::SendSuccess($this->txt("resetTraining"));
+		$this->tpl->setOnScreenMessage('success', $this->txt("resetTraining"));
 		$this->ctrl->redirect($this, "showContent");
 	}
 	
@@ -87,7 +98,6 @@ abstract class ilFlashcardsTrainingGUI
 	 */
 	protected function ConfirmResetTraining()
 	{
-		require_once("./Services/Utilities/classes/class.ilConfirmationGUI.php");	
 		$gui = new ilConfirmationGUI();
 		$gui->setFormAction($this->ctrl->getFormAction($this));
 		$gui->setHeaderText($this->txt("reset_training_confirmation"));
@@ -114,8 +124,6 @@ abstract class ilFlashcardsTrainingGUI
 		$tpl->setVariable("TRAINING_STATUS_TEXT", $text);
 		
 		// show the flashcard
-		$this->plugin->includeClass("class.ilFlashcardGUI.php");
-
         $card = $this->object->getCard($card_id);
         if (!is_object($card))
         {
@@ -129,7 +137,6 @@ abstract class ilFlashcardsTrainingGUI
 
 
 		// show the training actions for the card
-		require_once("./Services/UIComponent/Toolbar/classes/class.ilToolbarGUI.php");
 		$toolbar = new ilToolbarGUI();
 		$toolbar->setFormAction($this->ctrl->getFormAction($this));
 		$toolbar->setPreventDoubleSubmission(true);

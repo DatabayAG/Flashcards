@@ -27,7 +27,7 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 	*
 	* @return	boolean		true, if everything is ok
 	*/
-	function _checkAccess($a_cmd, $a_permission, $a_ref_id, $a_obj_id, $a_user_id = "")
+	function _checkAccess(string $a_cmd, string $a_permission, int $a_ref_id, int $a_obj_id, ?int $a_user_id = null): bool
 	{
 		global $DIC;
 
@@ -39,13 +39,6 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 		switch ($a_permission)
 		{
 			case "visible":
-				if (!self::checkOnline($a_obj_id) &&
-					!$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
-				{
-					return false;
-				}
-				break;
-
 			case "read":
 				if (!self::checkOnline($a_obj_id) &&
 					!$DIC->access()->checkAccessOfUser($a_user_id, "write", "", $a_ref_id))
@@ -64,12 +57,12 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 	static function checkOnline($a_id)
 	{
 		global $DIC;
-		$ilDB = $DIC->database();
+		$db = $DIC->database();
 		
-		$set = $ilDB->query("SELECT is_online FROM rep_robj_xflc_data ".
-			" WHERE obj_id = ".$ilDB->quote($a_id, "integer")
+		$set = $db->query("SELECT is_online FROM rep_robj_xflc_data ".
+			" WHERE obj_id = ".$db->quote($a_id, "integer")
 			);
-		$rec  = $ilDB->fetchAssoc($set);
+		$rec  = $db->fetchAssoc($set);
 		return (boolean) $rec["is_online"];
 	}
 	

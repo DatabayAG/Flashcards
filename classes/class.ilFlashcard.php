@@ -31,6 +31,9 @@ class ilFlashcard
 	 * @var integer
 	 */
 	private $term_id;
+    
+    /** @var ilDBInterface */
+    private $db;
 	
 	/**
 	 * Constructor
@@ -39,6 +42,9 @@ class ilFlashcard
 	 */
 	public function __construct($a_card_id = null)
 	{
+        global $DIC;
+        $this->db = $DIC->database();
+        
 		if ($a_card_id)
 		{
 			$this->card_id = $a_card_id;
@@ -81,14 +87,12 @@ class ilFlashcard
 	 */
 	public function save()
 	{
-		global $ilDB;
-		
 		if (!$this->getCardId())
 		{
-			$this->setCardId($ilDB->nextId("rep_robj_xflc_cards"));		
+			$this->setCardId($this->db->nextId("rep_robj_xflc_cards"));		
 		}
-		
-		$ilDB->replace("rep_robj_xflc_cards",
+
+        $this->db->replace("rep_robj_xflc_cards",
 			array( 	"card_id" 	=> array("integer", $this->getCardId())),
 			array(	"obj_id"	=> array("integer", $this->getObjId()),
 					"term_id"	=> array("integer", $this->getTermId()))
@@ -100,11 +104,9 @@ class ilFlashcard
 	 */
 	public function delete()
 	{
-		global $ilDB;
-		
 		$query = "DELETE from rep_robj_xflc_cards"
-				." WHERE card_id = " . $ilDB->quote($this->getCardId(), "integer");
-		$ilDB->manipulate($query);
+				." WHERE card_id = " . $this->db->quote($this->getCardId(), "integer");
+        $this->db->manipulate($query);
 	}
 	
 	/**
@@ -113,22 +115,23 @@ class ilFlashcard
 	private function read()
 	{
 		$query = "SELECT card_id, obj_id, term_id FROM rep_robj_xflc_cards ".
-		"WHERE card_id = ".$ilDB->quote($this->card_id, 'integer');
-		$result = $ilDB->query($query);
+		"WHERE card_id = ".$this->db->quote($this->card_id, 'integer');
+		$result = $this->db->query($query);
 		
-		$result = $ilDB->query($query);
-		if ($row = $ilDB->fetchAssoc($result))
+		$result = $this->db->query($query);
+		if ($row = $this->db->fetchAssoc($result))
 		{
 			$this->setRowData($row);
 			return true;
 		}
+        return false;
 	}
 	
 	
 	/**
 	 * Set the properties of this object from a darabase row
 	 * 
-	 * @param unknown_type $a_row
+	 * @param array $a_row
 	 */
 	private function setRowData($a_row = array())
 	{
@@ -141,19 +144,19 @@ class ilFlashcard
 	/**
 	 * get all flashcards for an object
 	 *
-	 * @param 	 int 		obj_id
+	 * @param 	 int 		$a_obj_id
 	 * @return   array   	card_id => card object
 	 */
 	public static function _getAll($a_obj_id)
 	{
-		global $ilDB;
-		
+        global $DIC;
+        
 		$query = "SELECT card_id, obj_id, term_id FROM rep_robj_xflc_cards ".
-		"WHERE obj_id = ".$ilDB->quote($a_obj_id, 'integer');
-		$result = $ilDB->query($query);
+		"WHERE obj_id = ". $DIC->database()->quote($a_obj_id, 'integer');
+		$result = $DIC->database()->query($query);
 	
 		$cards = array();
-		while ($row = $ilDB->fetchAssoc($result))
+		while ($row = $DIC->database()->fetchAssoc($result))
 		{
 			$card = new ilFlashcard();
 			$card->setRowData($row);
@@ -170,11 +173,11 @@ class ilFlashcard
 	 */
 	public static function _deleteAll($a_obj_id)
 	{
-		global $ilDB;
+		global $DIC;
 		
 		$query = "DELETE FROM rep_robj_xflc_cards"
-				." WHERE obj_id = " . $ilDB->quote($a_obj_id, "integer");
-		$ilDB->manipulate($query);
+				." WHERE obj_id = " . $DIC->database()->quote($a_obj_id, "integer");
+        $DIC->database()->manipulate($query);
 		
 	}
 	
@@ -187,16 +190,16 @@ class ilFlashcard
 	 */
 	public static function _cloneAll($a_source_id, $a_target_id)
 	{
-		global $ilDB;
+		global $DIC;
 		
 		$query = " SELECT card_id, obj_id, term_id"
 				. " FROM rep_robj_xflc_cards"
-				. " WHERE obj_id = " . $ilDB->quote($a_source_id, "integer");
-		$result = $ilDB->query($query);
-		while($row = $ilDB->fetchAssoc($result))
+				. " WHERE obj_id = " . $DIC->database()->quote($a_source_id, "integer");
+		$result = $DIC->database()->query($query);
+		while($row = $DIC->database()->fetchAssoc($result))
 		{
-			$ilDB->insert("rep_robj_xflc_cards",
-				array( 	"card_id" 	=> array("integer", $ilDB->nextId("rep_robj_xflc_cards")),
+            $DIC->database()->insert("rep_robj_xflc_cards",
+				array( 	"card_id" 	=> array("integer", $DIC->database()->nextId("rep_robj_xflc_cards")),
 						"obj_id"	=> array("integer", $a_target_id),
 						"term_id"	=> array("integer", $row["term_id"])));
 		}
@@ -209,12 +212,11 @@ class ilFlashcard
 	 */
 	public static function _updateTermIds($a_obj_id, $a_mapping)
 	{
-		/* @var ilDB $ilDB */
-		global $ilDB;
+		global $DIC;
 
 		foreach ($a_mapping as $old_term_id => $new_term_id)
 		{
-			$ilDB->update('rep_robj_xflc_cards',
+            $DIC->database()->update('rep_robj_xflc_cards',
 				array(
 					'term_id' => array('integer', $new_term_id)
 				),

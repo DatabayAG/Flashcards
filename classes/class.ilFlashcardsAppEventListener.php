@@ -29,8 +29,6 @@ class ilFlashcardsAppEventListener
 				{
 					case "deleteUser":
 						$user_id = $a_parameter['usr_id'];
-
-						require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/Flashcards/classes/class.ilFlashcardUsage.php");
 						ilFlashcardUsage::_deleteUser($user_id);
 						break;
 				}

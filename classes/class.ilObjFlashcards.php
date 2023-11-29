@@ -60,8 +60,6 @@ class ilObjFlashcards extends ilObjectPlugin
 	 */
 	private $cards = array();
 	
-		
-	
 	/**
 	* Constructor
 	*
@@ -76,7 +74,7 @@ class ilObjFlashcards extends ilObjectPlugin
 	/**
 	* Get type.
 	*/
-	final function initType()
+	final function initType(): void
 	{
 		$this->setType("xflc");
 	}
@@ -94,11 +92,9 @@ class ilObjFlashcards extends ilObjectPlugin
 	/**
 	* Create object
 	*/
-	function doCreate()
+	function doCreate(bool $clone_mode = false): void
 	{
-		global $ilDB;
-		
-		$ilDB->insert('rep_robj_xflc_data', 
+		$this->db->insert('rep_robj_xflc_data', 
 			array(	'obj_id' => array('integer', $this->getId()),
 					'is_online' => array('integer', $this->getOnline()),
 					'glossary_ref_id' => array('integer', $this->getGlossaryRefId()),
@@ -110,16 +106,14 @@ class ilObjFlashcards extends ilObjectPlugin
 	/**
 	* Read data from db
 	*/
-	function doRead()
+	function doRead(): void
 	{
-		global $ilDB;
-		
-		$set = $ilDB->query(
+		$set = $this->db->query(
 			'SELECT obj_id, is_online, glossary_ref_id, glossary_mode, instructions '.
 			'FROM rep_robj_xflc_data '.
-			'WHERE obj_id = '. $ilDB->quote($this->getId(), "integer")
+			'WHERE obj_id = '. $this->db->quote($this->getId(), "integer")
 			);
-		while ($rec = $ilDB->fetchAssoc($set))
+		while ($rec = $this->db->fetchAssoc($set))
 		{
 			$this->setOnline($rec["is_online"]);
 			$this->setGlossaryRefId($rec["glossary_ref_id"]);
@@ -134,11 +128,9 @@ class ilObjFlashcards extends ilObjectPlugin
 	/**
 	* Update data
 	*/
-	function doUpdate()
+	function doUpdate(): void
 	{
-		global $ilDB;
-
-		$ilDB->update('rep_robj_xflc_data', 
+		$this->db->update('rep_robj_xflc_data', 
 			array(	'obj_id' => array('integer', $this->getId()),
 					'is_online' => array('integer', $this->getOnline()),
 					'glossary_ref_id' => array('integer', $this->getGlossaryRefId()),
@@ -152,17 +144,13 @@ class ilObjFlashcards extends ilObjectPlugin
 	/**
 	* Delete data from db
 	*/
-	function doDelete()
+	function doDelete(): void
 	{
-		global $ilDB;
-		
-		$ilDB->manipulate(
+		$this->db->manipulate(
 			'DELETE FROM rep_robj_xflc_data '.
-			'WHERE obj_id = '.$ilDB->quote($this->getId(), 'integer')
+			'WHERE obj_id = '.$this->db->quote($this->getId(), 'integer')
 			);
 			
-		$this->plugin->includeClass('class.ilFlashcard.php');
-		$this->plugin->includeClass('class.ilFlashcardUsage.php');
 		ilFlashcard::_deleteAll($this->getId());
 		ilFlashcardUsage::_deleteAll($this->getId());	
 	}
@@ -170,7 +158,7 @@ class ilObjFlashcards extends ilObjectPlugin
 	/**
 	* Do Cloning
 	*/
-	protected function doCloneObject($new_obj, $a_target_id, $a_copy_id = null)
+	protected function doCloneObject(ilObject2 $new_obj, int $a_target_id, ?int $a_copy_id = null): void
 	{
 		$new_obj->setOnline($this->getOnline());
 		$new_obj->setGlossaryRefId($this->getGlossaryRefId());
@@ -178,7 +166,6 @@ class ilObjFlashcards extends ilObjectPlugin
 		$new_obj->setInstructions($this->getInstructions());
 		$new_obj->update();
 		
-		$this->plugin->includeClass('class.ilFlashcard.php');
 		ilFlashcard::_cloneAll($this->getId(), $new_obj->getId());
 	}
 
@@ -191,31 +178,26 @@ class ilObjFlashcards extends ilObjectPlugin
 	 * @param integer $a_copy_id
 	 * @return bool
 	 */
-	public function cloneDependencies($a_target_id,$a_copy_id)
+	public function cloneDependencies(int $a_target_id, int $a_copy_id): bool
 	{
-		global $ilDB;
-
 		parent::cloneDependencies($a_target_id,$a_copy_id);
 
 		// note: $this is the original object
 
-		include_once('Services/CopyWizard/classes/class.ilCopyWizardOptions.php');
 		$cp_options = ilCopyWizardOptions::_getInstance($a_copy_id);
 		if(!$cp_options->isRootNode($this->getRefId()))
 		{
 			$mappings = $cp_options->getMappings();
-
 			if (isset($mappings[$this->getGlossaryRefId()]))
 			{
 				$new_obj_id = ilObject::_lookupObjId($a_target_id);
-				$ilDB->update('rep_robj_xflc_data',
+				$this->db->update('rep_robj_xflc_data',
 					array('glossary_ref_id' => array('integer', $mappings[$this->getGlossaryRefId()])),
 					array('obj_id' => array('integer', $new_obj_id))
 				);
 
 				if (!empty($mappings[$this->getGlossaryRefId().'_glo_terms']))
 				{
-					$this->plugin->includeClass('class.ilFlashcard.php');
 					ilFlashcard::_updateTermIds($new_obj_id, $mappings[$this->getGlossaryRefId().'_glo_terms']);
 				}
 			}
@@ -327,7 +309,6 @@ class ilObjFlashcards extends ilObjectPlugin
 	 */
 	function readCards()
 	{
-		$this->plugin->includeClass('class.ilFlashcard.php');
 		$this->setCards(ilFlashcard::_getAll($this->getId()));
 	}
 	   
@@ -385,7 +366,6 @@ class ilObjFlashcards extends ilObjectPlugin
 		
 		// add new cards for new terms
 		$missing_terms = array_diff($all_terms, $found_terms);
-		$this->plugin->includeClass('class.ilFlashcard.php');
 		foreach ($missing_terms as $term_id)
 		{
 			$card = new ilFlashCard();
@@ -396,7 +376,6 @@ class ilObjFlashcards extends ilObjectPlugin
 		}
 		
 		// cleanup the trainings
-		$this->plugin->includeClass('class.ilFlashcardUsage.php');
 		ilFlashcardUsage::_cleanup($this);
 	}
 		
@@ -411,7 +390,6 @@ class ilObjFlashcards extends ilObjectPlugin
 
 		if (!isset($users))
 		{
-			$this->plugin->includeClass('class.ilFlashcardUsage.php');
 			$users = ilFlashcardUsage::_countUsers($this->getId());
 		}
 		return $users;
@@ -423,7 +401,6 @@ class ilObjFlashcards extends ilObjectPlugin
 	 */
 	static function _deleteUser($a_user_id)
 	{
-        require_once("./Customizing/global/plugins/Services/Repository/RepositoryObject/Flashcards/classes/class.ilFlashcardUsage.php");
 		ilFlashcardUsage::_deleteUser($a_user_id);
 	}	
 }

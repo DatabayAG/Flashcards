@@ -4,8 +4,6 @@
  * GPLv2, see LICENSE
  */
 
-include_once("./Services/Repository/classes/class.ilObjectPluginGUI.php");
-
 /**
 * User Interface class for flashcards object.
 *
@@ -22,18 +20,23 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	/**
 	* Get type.
 	*/
-	final function getType()
+	final function getType(): string
 	{
 		return "xflc";
 	}
-
+	
+	public function getMyObject(): ?ilObjFlashcards
+	{
+		/** @var ilObjFlashcards */
+		return $this->object;
+	}
+	
 	/**
 	 * Get the plugin object (made public)
-	 * @return object
-	 * @throws ilPluginException
 	 */
-	public function getMyPlugin()
+	public function getMyPlugin() : ilFlashcardsPlugin
 	{
+		/**  @var ilFlashcardsPlugin */
 		return $this->plugin;
 	}
 
@@ -44,22 +47,20 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	* @param	string		command to be executed
 	* @param	string		(optional) class that should handle the command
 	*/
-	function performCommand($cmd, $class = "")
+	function performCommand(string $cmd, ?string $class = 'null'): void
 	{
-		global $ilAccess, $ilTabs;
-		
 		// add addtitonal styles
 		$this->tpl->addCss($this->plugin->getStyleSheetLocation("flashcards.css"));
 		
 		// handling forwards to other classes
-		$next_class = $class ? $class : $this->ctrl->getNextClass();
+		$next_class = $class ?: $this->ctrl->getNextClass();
 		switch ($next_class)
 		{
 			// glossary selection in properties form
 			case "ilpropertyformgui":
 				
 				$this->checkPermission("write");
-				$ilTabs->activateTab("properties");	
+				$this->tabs->activateTab("properties");	
 							
 				$this->initPropertiesForm();
 				$this->ctrl->setReturn($this, "updateGlossaryRefId");
@@ -70,40 +71,29 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 			case "ilpageobjectgui":
 				
 				$this->checkPermission("read");
-				$ilTabs->activateTab("content");
+				$this->tabs->activateTab("content");
 				
-				require_once("./Services/COPage/classes/class.ilPageObjectGUI.php");
-				require_once("./Services/Style/classes/class.ilObjStyleSheet.php");
 				$page_gui = new ilPageObjectGUI("gdf", $_GET["pg_id"]);
 				$this->ctrl->forwardCommand($page_gui);
 				return;
-				
-			// common checks for all training classes (continues switch)	
+
+			// Leitner training 
 			case "illeitnertraininggui":
 			case "ilsupermemotraininggui":
 				
 				$this->checkPermission("read");
-				$ilTabs->activateTab("content");
+				$this->tabs->activateTab("content");
 
-				if (!$ilAccess->checkAccess("read", "", $this->object->getGlossaryRefId()))
+				if (!$this->access->checkAccess("read", "", $this->object->getGlossaryRefId()))
 				{
-					ilUtil::sendFailure($this->txt("glossary_not_readable"));
-				}				
+					$this->tpl->setOnScreenMessage('failure', $this->txt("glossary_not_readable"));
+				}
 
-				// include the base classes extend by the specific training modes
-				$this->plugin->includeClass('class.ilFlashcardsTrainingGUI.php');
-				$this->plugin->includeClass('class.ilFlashcardsTraining.php');
-				
-			// Leitner training 	
-			case "illeitnertraininggui":
-				$this->plugin->includeClass('Leitner/class.ilLeitnerTrainingGUI.php');
 				$training_gui = new ilLeitnerTrainingGUI($this);
 				$this->ctrl->setReturn($this, "showContent");	
 				$this->ctrl->forwardCommand($training_gui);	
 				return;	
 
-			// SuperMemo training (TODO)
-			case "ilsupermemotraininggui":
 				
 
 			// show unknown next class	
@@ -116,7 +106,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		}
 		
 		// handling commands for this class
-		$cmd = $cmd ? $cmd : $this->ctrl->getCmd();
+		$cmd = $cmd ?: $this->ctrl->getCmd();
 		switch ($cmd)
 		{
 			// properties (author)
@@ -126,7 +116,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 			case "updateCardsFromGlossary":
 
 				$this->checkPermission("write");
-				$ilTabs->activateTab("properties");
+				$this->tabs->activateTab("properties");
 				
 				$this->initPropertiesForm();
 				$this->$cmd();
@@ -154,7 +144,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	/**
 	* After object has been created -> jump to this command
 	*/
-	function getAfterCreationCmd()
+	function getAfterCreationCmd(): string
 	{
 		return "editProperties";
 	}
@@ -162,7 +152,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	/**
 	* Get standard command
 	*/
-	function getStandardCmd()
+	function getStandardCmd(): string
 	{
 		return "showContent";
 	}
@@ -171,25 +161,24 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	/**
 	* Set tabs
 	*/
-	function setTabs()
+	function setTabs(): void
 	{
-		global $ilAccess, $ilTabs, $ilHelp;
-
-		$ilHelp->setScreenIdComponent("xflc");
+		global $DIC;
+		$DIC->help()->setScreenIdComponent("xflc");
 		
 		// tab for the "show content" command
-		if ($ilAccess->checkAccess("read", "", $this->object->getRefId()))
+		if ($this->access->checkAccess("read", "", $this->object->getRefId()))
 		{
-			$ilTabs->addTab("content", $this->txt("content"), $this->ctrl->getLinkTarget($this, "showContent"));
+			$this->tabs->addTab("content", $this->txt("content"), $this->ctrl->getLinkTarget($this, "showContent"));
 		}
 
 		// standard info screen tab
 		$this->addInfoTab();
 
 		// a "properties" tab
-		if ($ilAccess->checkAccess("write", "", $this->object->getRefId()))
+		if ($this->access->checkAccess("write", "", $this->object->getRefId()))
 		{
-			$ilTabs->addTab("properties", $this->txt("properties"), $this->ctrl->getLinkTarget($this, "editProperties"));
+			$this->tabs->addTab("properties", $this->txt("properties"), $this->ctrl->getLinkTarget($this, "editProperties"));
 		}
 
 		// standard permission tab
@@ -206,7 +195,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		
 		if (!$this->object->getGlossaryRefId())
 		{
-			ilUtil::sendFailure($this->txt("select_glossary"));
+			$this->tpl->setOnScreenMessage('failure', $this->txt("select_glossary"));
 		}
 		$this->tpl->setContent($this->form->getHTML());
 	}
@@ -219,7 +208,6 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	*/
 	private function initPropertiesForm()
 	{
-		include_once("Services/Form/classes/class.ilPropertyFormGUI.php");
 		$this->form = new ilPropertyFormGUI();
 	
 		// title
@@ -236,12 +224,10 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		$this->form->addItem($cb);
 		
 		// glossary ref_id
-		$this->plugin->includeClass('class.ilGlossarySelectorInputGUI.php');		
 		$rs = new ilGlossarySelectorInputGUI($this->txt("glossary_selection"), "glossary_ref_id");
 		$rs->setRequired(true);
 		$rs->setInfo($this->txt("glossary_selection_info"));
 		$rs->setHeaderMessage($this->txt("select_glossary"));
-		$this->plugin->includeClass('class.ilFlashcardsTraining.php');
 		if ($this->object->countUsers() > 0)
 		{
 			$rs->setDisabled(true);
@@ -306,7 +292,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 			$this->object->setGlossaryMode($this->form->getInput("glossary_mode"));
 			$this->object->setInstructions($this->form->getInput("instructions"));
 			$this->object->update();
-			ilUtil::sendSuccess($this->lng->txt("msg_obj_modified"), true);
+			$this->tpl->setOnScreenMessage('success', $this->lng->txt("msg_obj_modified"), true);
 			$this->ctrl->redirect($this, "editProperties");
 		}
 		else
@@ -327,7 +313,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		$this->object->setGlossaryRefId($input->getValue());
 		$this->object->update();
 		$this->object->updateCardsFromGlossary();
-		ilUtil::sendSuccess($this->lng->txt("msg_obj_modified"), true);
+		$this->tpl->setOnScreenMessage('success', $this->lng->txt("msg_obj_modified"), true);
 		$this->ctrl->redirect($this, "editProperties");
 	}
 	
@@ -338,7 +324,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	private function updateCardsFromGlossary()
 	{
 		$this->object->updateCardsFromGlossary();
-		ilUtil::sendSuccess($this->txt("synchronized_with_glossary"), true);
+		$this->tpl->setOnScreenMessage('success', $this->txt("synchronized_with_glossary"), true);
 		$this->ctrl->redirect($this, "editProperties");
 	}
 }

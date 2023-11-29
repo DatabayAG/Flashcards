@@ -4,8 +4,6 @@
  * GPLv2, see LICENSE
  */
 
-include_once("Services/Table/classes/class.ilTable2GUI.php");
-
 /**
 * Table showing leitner boxes with training cards
 *
@@ -17,15 +15,13 @@ class ilLeitnerTableGUI extends ilTable2GUI
 {
 	function __construct($a_parent_gui, $a_parent_cmd)
 	{
-		global $ilCtrl, $lng;
- 		
 		parent::__construct($a_parent_gui, $a_parent_cmd);
  
 		$this->parent = 	$a_parent_gui;
 		$this->plugin = 	$a_parent_gui->plugin;
 		$this->training =  	$a_parent_gui->training;
 		
-		$this->setFormAction($ilCtrl->getFormAction($this->parent));		
+		$this->setFormAction($this->ctrl->getFormAction($this->parent));		
 		$this->addColumn($this->plugin->txt("leitner_box"), "", "29%");
 		$this->addColumn($this->plugin->txt("leitner_capacity"), "", "15%");
 		$this->addColumn($this->plugin->txt("count_cards"), "", "15%");
@@ -40,10 +36,8 @@ class ilLeitnerTableGUI extends ilTable2GUI
 	/**
 	 * Fill a single data row.
 	 */
-	protected function fillRow($a_set)
+	protected function fillRow(array $a_set): void
 	{
-		global $lng, $ilCtrl;
- 
 		// box title
 		if ($a_set["box"] == 0)
 		{
@@ -62,8 +56,8 @@ class ilLeitnerTableGUI extends ilTable2GUI
 		// actions
 		if ($a_set["count"])
 		{
-			$ilCtrl->setParameter($this->parent, "box", $a_set["box"]);
-			$this->tpl->setVariable("LINK_TRAINING", $ilCtrl->getLinkTarget($this->parent,"startTraining"));
+			$this->ctrl->setParameter($this->parent, "box", $a_set["box"]);
+			$this->tpl->setVariable("LINK_TRAINING", $this->ctrl->getLinkTarget($this->parent,"startTraining"));
 			$this->tpl->setVariable("TXT_TRAINING", $this->plugin->txt("start_training"));
 		}
 		

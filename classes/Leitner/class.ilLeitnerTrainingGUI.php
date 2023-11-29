@@ -21,7 +21,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	public function executeCommand()	
 	{
 		$cmd = $this->ctrl->getCmd();
-		$cmd = $cmd ? $cmd : "showContent";
+		$cmd = $cmd ?: "showContent";
 		$this->$cmd();
 	}
 	
@@ -29,11 +29,9 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	/**
 	 * Init the training object
 	 */
-	protected function getTrainingObject()
+	protected function getTrainingObject(): ilFlashcardsTraining
 	{
-		global $ilUser;
-		$this->plugin->includeClass("Leitner/class.ilLeitnerTraining.php");
-		return new ilLeitnerTraining($this->object, $ilUser);
+		return new ilLeitnerTraining($this->object, $this->user);
 	}
 	
 	
@@ -52,7 +50,6 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 		}
 		
 		// table with boxes and commands
-		$this->plugin->includeClass("Leitner/class.ilLeitnerTableGUI.php");
 		$table = new ilLeitnerTableGUI($this, "showContent");
 		$table->setData($this->training->getOverviewData());
 		
@@ -94,12 +91,12 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	{
 		if ($this->training->isStartMaxReached())
 		{
-			ilUtil::sendInfo(sprintf($this->txt("leitner_startbox_full"), $this->training->getStartMax()), false);
+            $this->tpl->setOnScreenMessage('info', sprintf($this->txt("leitner_startbox_full"), $this->training->getStartMax()), false);
 		}
 		else
 		{
 			$filled = $this->training->fillStartbox();
-			ilUtil::sendSuccess(sprintf($this->txt("leitner_startbox_filled"), $filled), false);
+            $this->tpl->setOnScreenMessage('success', sprintf($this->txt("leitner_startbox_filled"), $filled), false);
 		}
 		
 		$this->showContent();
@@ -120,8 +117,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 		}
 		else
 		{
-			ilUtil::sendFailure(sprintf($this->txt("leitner_training_not_available"), $box), false);
-			$this->showContent();
+            $this->tpl->setOnScreenMessage('failure', sprintf($this->txt("leitner_training_not_available"), $box), false);$this->showContent();
 		}
 	}
 	
@@ -131,7 +127,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	 */ 
 	protected function cancelTraining()
 	{
-		ilUtil::sendInfo($this->txt("leitner_training_canceled"), false);
+        $this->tpl->setOnScreenMessage('info', $this->txt("leitner_training_canceled"), false);
 		$this->showContent();
 	}
 	
@@ -204,7 +200,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 		}
 		else
 		{
-			ilUtil::sendSuccess($this->txt("leitner_training_finished"), true);
+            $this->tpl->setOnScreenMessage('success', $this->txt("leitner_training_finished"), true);
 			$this->ctrl->redirect($this, "showContent");
 		}
 	}

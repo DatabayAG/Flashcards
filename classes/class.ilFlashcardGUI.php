@@ -37,19 +37,7 @@ class ilFlashcardGUI
 	 */
 	function getCardForTrainingHTML()
 	{
-
-		if (file_exists("./Services/Style/classes/class.ilObjStyleSheet.php"))
-		{
-			// up to 5.1
-			include_once("./Services/Style/classes/class.ilObjStyleSheet.php");
-		}
-		else
-		{
-			// from 5.2
-			include_once("./Services/Style/Content/classes/class.ilObjStyleSheet.php");
-		}
-
-		$this->tpl->addCss(ilObjStyleSheet::getContentStylePath(0));
+        $this->tpl->addCss(ilObjStyleSheet::getContentStylePath(0));
 		
 		// get the card pages to be displayed
 		if ($this->card->getTermId())
@@ -62,7 +50,6 @@ class ilFlashcardGUI
 			$pages = array();
 		}
 		
-		require_once("./Services/Accordion/classes/class.ilAccordionGUI.php");
 		$question = new ilAccordionGUI();
 		$question->setBehaviour(ilAccordionGUI::FORCE_ALL_OPEN);
 		$question->setContentClass("xflcFlashcardPage");
@@ -90,10 +77,6 @@ class ilFlashcardGUI
 	 */
 	function getGlossaryTermPages()
 	{
-		require_once("./Modules/Glossary/classes/class.ilGlossaryTerm.php");
-		require_once("./Modules/Glossary/classes/class.ilGlossaryDefinition.php");
-		require_once("./Services/COPage/classes/class.ilPageObjectGUI.php");
-
 		$term = new ilGlossaryTerm($this->card->getTermId());
 		$defs = ilGlossaryDefinition::getDefinitionList($term->getId());
 		

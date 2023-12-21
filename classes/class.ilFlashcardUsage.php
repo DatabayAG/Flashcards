@@ -46,7 +46,7 @@ class ilFlashcardUsage
 	
 	/**
 	 * Time of the last check
-	 * @var object	ilDateTime
+	 * @var ilDateTime
 	 */
 	private $last_checked;
 	
@@ -151,14 +151,14 @@ class ilFlashcardUsage
 	}
 	
 	
-	public function setLastChecked($a_checked, $a_format = null)
+	public function setLastChecked(ilDateTime $a_checked)
 	{
-		$this->last_checked = isset($a_format) ? new ilDateTime($a_checked, $a_format): $a_checked;
+		$this->last_checked = $a_checked;
 	}
-	public function getLastChecked($a_format = null)
+
+	public function getLastChecked() : ilDateTime
 	{
-		$checked = isset($this->last_checked) ? $this->last_checked : new ilDateTime();		
-		return isset($a_format) ? $checked->get($a_format) : $checked;
+		return $this->last_checked ?? new ilDateTime();		
 	}
 	
 	public function setLastResult($a_result)
@@ -200,7 +200,7 @@ class ilFlashcardUsage
 					"card_id"		=> array("integer", $this->getCardId())),
 			array(	"status"		=> array("integer", $this->getStatus()),
 					"last_status"	=> array("integer", $this->getLastStatus()),
-					"last_checked"	=> array("timestamp", $this->getLastChecked(IL_CAL_DATETIME)),
+					"last_checked"	=> array("timestamp", $this->getLastChecked()->get(IL_CAL_DATETIME)),
 					"last_result"	=> array("integer",	$this->getLastResult()),
 					"times_checked" => array("integer", $this->getTimesChecked()),
 					"times_known"	=> array("integer", $this->getTimesKnown()))
@@ -254,7 +254,7 @@ class ilFlashcardUsage
 		$this->setCardId($a_row["card_id"] ?? 0);
 		$this->setStatus($a_row["status"] ?? null);
 		$this->setLastStatus($a_row["last_status"] ?? null);
-		$this->setLastChecked($a_row["last_checked"] ?? null,IL_CAL_DATETIME);
+		$this->setLastChecked(new ilDateTime(($a_row["last_checked"] ?? null),IL_CAL_DATETIME));
 		$this->setLastResult($a_row["last_result"] ?? null);
 		$this->setTimesChecked($a_row["times_checked"] ?? null);
 		$this->setTimesKnown($a_row["times_known"] ?? null);

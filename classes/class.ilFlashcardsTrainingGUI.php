@@ -13,14 +13,13 @@
  */
 abstract class ilFlashcardsTrainingGUI
 {
-
-	protected ilObjFlashcardsGUI $a_parent_gui;
-	protected ilObjFlashcards $object;
-	protected ilFlashcardsPlugin $plugin;
-	protected ilLanguage $lng;
-	protected ilCtrlInterface $ctrl;
-	protected ilGlobalTemplateInterface $tpl;
-	protected ilFlashcardsTraining $training;
+	public ilFlashcardsPlugin $plugin;
+	public ilFlashcardsTraining $training;
+	public ilObjFlashcardsGUI $a_parent_gui;
+	public ilObjFlashcards $object;
+	public ilLanguage $lng;
+	public ilCtrlInterface $ctrl;
+	public ilGlobalTemplateInterface $tpl;
 	
 	
 	/** 

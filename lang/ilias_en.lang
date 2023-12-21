@@ -86,4 +86,4 @@ untrained_1#:#There is one new card left to be trained.
 untrained_x#:#There are %s new cards left to be trained.
 leitner_hint_fill_startbox#:#Fill the startbox with new cards. 
 leitner_hint_train_startbox#:#Train the startbox to get space for new cards. 
-card_is_deleted#:#Diese Karte wurde gelöscht.
+card_is_deleted#:#This card is deleted.

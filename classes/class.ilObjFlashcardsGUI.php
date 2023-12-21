@@ -47,13 +47,13 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	* @param	string		command to be executed
 	* @param	string		(optional) class that should handle the command
 	*/
-	function performCommand(string $cmd, ?string $class = 'null'): void
+	function performCommand(string $cmd, ?string $class = null): void
 	{
 		// add addtitonal styles
 		$this->tpl->addCss($this->plugin->getStyleSheetLocation("flashcards.css"));
 		
 		// handling forwards to other classes
-		$next_class = $class ?: $this->ctrl->getNextClass();
+		$next_class = $class ?? $this->ctrl->getNextClass();
 		switch ($next_class)
 		{
 			// glossary selection in properties form
@@ -79,7 +79,6 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 
 			// Leitner training 
 			case "illeitnertraininggui":
-			case "ilsupermemotraininggui":
 				
 				$this->checkPermission("read");
 				$this->tabs->activateTab("content");
@@ -224,10 +223,12 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		$this->form->addItem($cb);
 		
 		// glossary ref_id
-		$rs = new ilGlossarySelectorInputGUI($this->txt("glossary_selection"), "glossary_ref_id");
+		
+		$rs = new ilRepositorySelector2InputGUI($this->txt("glossary_selection"), "glossary_ref_id");
 		$rs->setRequired(true);
+		$rs->getExplorerGUI()->setClickableTypes(['glo']);
+		$rs->getExplorerGUI()->setSelectableTypes(['glo']);
 		$rs->setInfo($this->txt("glossary_selection_info"));
-		$rs->setHeaderMessage($this->txt("select_glossary"));
 		if ($this->object->countUsers() > 0)
 		{
 			$rs->setDisabled(true);

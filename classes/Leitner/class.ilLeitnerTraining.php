@@ -265,7 +265,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 				return false;
 		}
 		$usage->setLastStatus($old_box);
-		$usage->setLastChecked(time(), IL_CAL_UNIX);
+		$usage->setLastChecked(new ilDateTime(time(), IL_CAL_UNIX));
 		$usage->setTimesChecked($usage->getTimesChecked() +1 );
 		$usage->save();
 		

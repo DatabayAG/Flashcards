@@ -13,23 +13,31 @@
 */
 class ilLeitnerTableGUI extends ilTable2GUI
 {
+    protected string $clock = '';
+    
 	function __construct($a_parent_gui, $a_parent_cmd)
 	{
-		parent::__construct($a_parent_gui, $a_parent_cmd);
+        global $DIC;
+
+        parent::__construct($a_parent_gui, $a_parent_cmd);
  
 		$this->parent = 	$a_parent_gui;
 		$this->plugin = 	$a_parent_gui->plugin;
 		$this->training =  	$a_parent_gui->training;
-		
-		$this->setFormAction($this->ctrl->getFormAction($this->parent));		
+
+        $f = $DIC->ui()->factory();
+        $renderer = $DIC->ui()->renderer();
+        $this->clock = $renderer->render($f->symbol()->glyph()->time("#"));
+
+
+        $this->setFormAction($this->ctrl->getFormAction($this->parent));		
 		$this->addColumn($this->plugin->txt("leitner_box"), "", "29%");
 		$this->addColumn($this->plugin->txt("leitner_capacity"), "", "15%");
 		$this->addColumn($this->plugin->txt("count_cards"), "", "15%");
 		$this->addColumn($this->plugin->txt("last_trained"), "", "20%");
 		$this->addColumn($this->plugin->txt("actions"), "", "20%");
-		$this->addColumn("", "", "1%");
 		$this->setEnableNumInfo(false);
-		$this->setRowTemplate("tpl.leitner_table_row.html", "Customizing/global/plugins/Services/Repository/RepositoryObject/Flashcards");
+		$this->setRowTemplate("tpl.leitner_table_row.html", $this->plugin->getDirectory());
 	}
  
   	
@@ -69,8 +77,7 @@ class ilLeitnerTableGUI extends ilTable2GUI
             // training alert
             if (($a_set["count"] ?? 0) >= ($a_set["capacity"] ?? 0))
             {
-                $this->tpl->setVariable("SRC_TRAINING_ALERT", $this->plugin->getImagePath("clock.png"));
-                $this->tpl->setVariable("TXT_TRAINING_ALERT", $this->plugin->txt("training_needed"));
+                $this->tpl->setVariable("TRAINING_ALERT", $this->clock);
             }
 		}
 	}

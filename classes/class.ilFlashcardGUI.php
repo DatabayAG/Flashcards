@@ -56,6 +56,7 @@ class ilFlashcardGUI
 		$question->addItem($pages[0]["title"] ?? '', $pages[0]["html"] ?? '');
 
 		$answers = new ilAccordionGUI();
+        $answers->setBehaviour(ilAccordionGUI::ALL_CLOSED);
 		//$answers->setBehaviour(ilAccordionGUI::FIRST_OPEN);
 		$answers->setContentClass("xflcFlashcardPage");
 		
@@ -77,19 +78,28 @@ class ilFlashcardGUI
 	 */
 	function getGlossaryTermPages()
 	{
-		$term = new ilGlossaryTerm($this->card->getTermId());
-		$defs = ilGlossaryDefinition::getDefinitionList($term->getId());
+        try {
+            $term = new ilGlossaryTerm($this->card->getTermId());
+		    $defs = ilGlossaryDefinition::getDefinitionList($term->getId());
 		
-		// get the term page
-		$term_page = array(	"title" => $this->plugin->txt("glossary_term"), 
-							"html" => $term->getTerm());
+		    // get the term page
+		    $term_page = array(	"title" => $this->plugin->txt("glossary_term"),
+                                "html" => $term->getTerm());
+        }
+        catch (Exception $e) {
+            $term_page = array(	"title" => $this->plugin->txt("glossary_term"), 
+                                "html" => $this->plugin->txt("card_is_deleted"));
+            $defs = [];
+        }
 
 		// get the definition pages
 		$def_pages = array();
 		$def_title = count($defs) > 1 ? 
 					$this->plugin->txt("glossary_definition_x") :
 					$this->plugin->txt("glossary_definition");
-		foreach ($defs as $definition)
+
+        $i = 1;
+        foreach ($defs as $definition)
 		{
 			$page_gui = new ilPageObjectGUI("gdf", $definition["id"] ?? 0);			
 			$page_gui->setTemplateOutput(false);

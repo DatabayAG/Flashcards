@@ -95,12 +95,12 @@ class ilGlossarySelectorInputGUI extends ilRepositorySelectorInputGUI
 		else
 		{
 			$nd = $tree->getNodeData(ROOT_FOLDER_ID);
-			$title = $nd["title"];
+			$title = $nd["title"] ?? '';
 			if ($title == "ILIAS")
 			{
 				$title = $lng->txt("repository");
 			}
-			if (in_array($nd["type"], $this->getClickableTypes()))
+			if (in_array($nd["type"] ?? '', $this->getClickableTypes()))
 			{
 				$tpl->setVariable("TXT_ITEM", $title);
 			}

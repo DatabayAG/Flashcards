@@ -28,7 +28,7 @@ class ilFlashcardsAppEventListener
 				switch ($a_event)
 				{
 					case "deleteUser":
-						$user_id = $a_parameter['usr_id'];
+						$user_id = $a_parameter['usr_id'] ?? 0;
 						ilFlashcardUsage::_deleteUser($user_id);
 						break;
 				}

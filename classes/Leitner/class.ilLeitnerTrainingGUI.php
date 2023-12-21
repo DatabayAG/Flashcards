@@ -108,7 +108,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	 */
 	protected function startTraining()
 	{
-		$box = (int) $_GET["box"];
+		$box = (int) ($_GET["box"] ?? 0);
 		if ($this->training->initTrainingSession($box))
 		{
 			$card_id = $this->training->getNextCardId();
@@ -161,7 +161,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	 */
 	protected function setCardKnown()
 	{
-		$this->setCardChecked((int) $_GET["card_id"], "known");	
+		$this->setCardChecked((int) ($_GET["card_id"] ?? 0), "known");	
 	}
 	
 	
@@ -170,7 +170,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	 */
 	protected function setCardDifficult()
 	{
-		$this->setCardChecked((int) $_GET["card_id"], "difficult");	
+		$this->setCardChecked((int) ($_GET["card_id"] ?? 0), "difficult");	
 	}
 	
 	
@@ -179,7 +179,7 @@ class ilLeitnerTrainingGUI extends ilFlashcardsTrainingGUI
 	 */
 	protected function setCardNotKnown()
 	{
-		$this->setCardChecked((int) $_GET["card_id"], "not_known");	
+		$this->setCardChecked((int) ($_GET["card_id"] ?? 0), "not_known");	
 	}
 	
 	

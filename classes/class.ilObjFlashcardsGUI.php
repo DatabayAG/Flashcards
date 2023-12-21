@@ -73,7 +73,7 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 				$this->checkPermission("read");
 				$this->tabs->activateTab("content");
 				
-				$page_gui = new ilPageObjectGUI("gdf", $_GET["pg_id"]);
+				$page_gui = new ilPageObjectGUI("gdf", $_GET["pg_id"] ?? 0);
 				$this->ctrl->forwardCommand($page_gui);
 				return;
 

@@ -63,7 +63,7 @@ class ilObjFlashcardsAccess extends ilObjectPluginAccess
 			" WHERE obj_id = ".$db->quote($a_id, "integer")
 			);
 		$rec  = $db->fetchAssoc($set);
-		return (boolean) $rec["is_online"];
+		return (boolean) ($rec["is_online"] ?? false);
 	}
 	
 }

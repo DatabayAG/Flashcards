@@ -114,14 +114,15 @@ abstract class ilFlashcardsTrainingGUI
 	 */
 	protected function showCard()
 	{
-		$card_id = (int) $_GET["card_id"];
+		$card_id = (int) ($_GET["card_id"] ?? 0);
 		$this->ctrl->saveParameter($this, "card_id");
 
 		$tpl = $this->plugin->getTemplate("tpl.training_show_card.html");
 		
 		// show the status text
-		if ($text = $this->getTrainingStatusText())
-		$tpl->setVariable("TRAINING_STATUS_TEXT", $text);
+		if ($text = $this->getTrainingStatusText()) {
+			$tpl->setVariable("TRAINING_STATUS_TEXT", $text);
+		}
 		
 		// show the flashcard
         $card = $this->object->getCard($card_id);
@@ -145,8 +146,8 @@ abstract class ilFlashcardsTrainingGUI
 		foreach($actions as $action)
 		{
 			$button = ilSubmitButton::getInstance();
-			$button->setCaption($action["txt"], false);
-			$button->setCommand($action["cmd"]);
+			$button->setCaption($action["txt"] ?? '', false);
+			$button->setCommand($action["cmd"] ?? '');
 			$button->setOmitPreventDoubleSubmission(false);
 			$toolbar->addButtonInstance($button);
 		}

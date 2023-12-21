@@ -249,15 +249,15 @@ class ilFlashcardUsage
 	 */
 	private function setRowData($a_row = array())
 	{
-		$this->setObjId($a_row["obj_id"]);
-		$this->setUserId($a_row["user_id"]);
-		$this->setCardId($a_row["card_id"]);
-		$this->setStatus($a_row["status"]);
-		$this->setLastStatus($a_row["last_status"]);
-		$this->setLastChecked($a_row["last_checked"],IL_CAL_DATETIME);
-		$this->setLastResult($a_row["last_result"]);
-		$this->setTimesChecked($a_row["times_checked"]);
-		$this->setTimesKnown($a_row["times_known"]);
+		$this->setObjId($a_row["obj_id"] ?? 0);
+		$this->setUserId($a_row["user_id"] ?? 0);
+		$this->setCardId($a_row["card_id"] ?? 0);
+		$this->setStatus($a_row["status"] ?? null);
+		$this->setLastStatus($a_row["last_status"] ?? null);
+		$this->setLastChecked($a_row["last_checked"] ?? null,IL_CAL_DATETIME);
+		$this->setLastResult($a_row["last_result"] ?? null);
+		$this->setTimesChecked($a_row["times_checked"] ?? null);
+		$this->setTimesKnown($a_row["times_known"] ?? null);
 	}
 	
 	
@@ -308,7 +308,7 @@ class ilFlashcardUsage
 		
 		$result = $db->query($query);
 		$row = $db->fetchAssoc($result);
-		return $row["users"];
+		return $row["users"] ?? 0;
 	}
 	
 	

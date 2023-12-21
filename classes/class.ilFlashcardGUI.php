@@ -53,7 +53,7 @@ class ilFlashcardGUI
 		$question = new ilAccordionGUI();
 		$question->setBehaviour(ilAccordionGUI::FORCE_ALL_OPEN);
 		$question->setContentClass("xflcFlashcardPage");
-		$question->addItem($pages[0]["title"], $pages[0]["html"]);
+		$question->addItem($pages[0]["title"] ?? '', $pages[0]["html"] ?? '');
 
 		$answers = new ilAccordionGUI();
 		//$answers->setBehaviour(ilAccordionGUI::FIRST_OPEN);
@@ -61,7 +61,7 @@ class ilFlashcardGUI
 		
 		for ($i=1; $i < count($pages); $i++)
 		{
-			$answers->addItem($pages[$i]["title"], $pages[$i]["html"]);
+			$answers->addItem($pages[$i]["title"] ?? '', $pages[$i]["html"] ?? '');
 		}
 		
 		return $question->getHTML() . $answers->getHTML();
@@ -85,14 +85,13 @@ class ilFlashcardGUI
 							"html" => $term->getTerm());
 
 		// get the definition pages
-		$i = 1; 
 		$def_pages = array();
 		$def_title = count($defs) > 1 ? 
 					$this->plugin->txt("glossary_definition_x") :
 					$this->plugin->txt("glossary_definition");
 		foreach ($defs as $definition)
 		{
-			$page_gui = new ilPageObjectGUI("gdf", $definition["id"]);			
+			$page_gui = new ilPageObjectGUI("gdf", $definition["id"] ?? 0);			
 			$page_gui->setTemplateOutput(false);
 			$page_gui->setOutputMode(ilPageObjectGUI::PRESENTATION);
 			$page_gui->setEnabledTabs(false);
@@ -112,7 +111,10 @@ class ilFlashcardGUI
 				return array_merge($def_pages, array($term_page));
 			
 			case ilObjFlashcards::GLOSSARY_MODE_DEFINITIONS:
-				
+                if (empty($def_pages)) {
+                    return array($term_page);
+                }
+                
 				$def_pages[0]["title"] = $this->plugin->txt("question");
 				$answer_title = count($def_pages) > 2 ? 
 								$this->plugin->txt("answer_x") :

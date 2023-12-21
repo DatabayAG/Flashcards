@@ -68,6 +68,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 		foreach ($this->getUsedCards() as $card_id => $usage)
 		{
 			$box = min($usage->getStatus(), $this->getLastBox());
+            $this->boxes[$box] = $this->boxes[$box] ?? [];
 			$this->boxes[$box][$card_id] = $usage;
 		}
 	}
@@ -84,7 +85,8 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 	{
 		$usage = parent::addCardUsage($a_card_id, $a_status);
 		$box = min($usage->getStatus(), $this->getLastBox());
-		$this->boxes[$box][$a_card_id] = $usage;
+        $this->boxes[$box] = $this->boxes[$box] ?? [];
+        $this->boxes[$box][$a_card_id] = $usage;
 	}
 	
 	
@@ -108,7 +110,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 	 */
 	public function countCardsInBox($a_box)
 	{
-		return count((array) $this->boxes[$a_box]);
+		return count((array) ($this->boxes[$a_box] ?? []));
 	}
 		
 	
@@ -157,7 +159,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 
 		for ($box = 0; $box <= $this->getLastBox(); $box++)
 		{
-			if (!isset($data[$box]['last_trained']))
+			if (isset($data[$box]) && !isset($data[$box]['last_trained']))
 			{
 				$data[$box]['last_trained'] = new ilDateTime();
 			}
@@ -206,7 +208,7 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 		$this->resetSessionValues();
 		
 		// check if there is something to train 
-		if (is_array($this->boxes[$a_box]) and count($this->boxes[$a_box]) > 0)
+		if (isset($this->boxes[$a_box]) && is_array($this->boxes[$a_box]) && count($this->boxes[$a_box]) > 0)
 		{
 			$to_train = array_keys($this->boxes[$a_box]);
 			shuffle($to_train);
@@ -270,7 +272,10 @@ class ilLeitnerTraining extends ilFlashcardsTraining
 		// adjust the box association
 		if ($new_box != $old_box)
 		{
-			unset($this->boxes[$old_box][$a_card_id]);
+            if (isset($this->boxes[$old_box][$a_card_id])) {
+                unset($this->boxes[$old_box][$a_card_id]);
+            }
+            $this->boxes[$new_box] = $this->boxes[$new_box] ?? [];
 			$this->boxes[$new_box][$a_card_id] = $usage;
 		}
 		

@@ -135,9 +135,9 @@ class ilFlashcard
 	 */
 	private function setRowData($a_row = array())
 	{
-		$this->setCardId($a_row["card_id"]);
-		$this->setObjId($a_row["obj_id"]);
-		$this->setTermId($a_row["term_id"]);
+		$this->setCardId($a_row["card_id"] ?? 0);
+		$this->setObjId($a_row["obj_id"] ?? 0);
+		$this->setTermId($a_row["term_id"] ?? 0);
 	}
 	
 	
@@ -201,7 +201,7 @@ class ilFlashcard
             $DIC->database()->insert("rep_robj_xflc_cards",
 				array( 	"card_id" 	=> array("integer", $DIC->database()->nextId("rep_robj_xflc_cards")),
 						"obj_id"	=> array("integer", $a_target_id),
-						"term_id"	=> array("integer", $row["term_id"])));
+						"term_id"	=> array("integer", $row["term_id"] ?? 0)));
 		}
 	}
 

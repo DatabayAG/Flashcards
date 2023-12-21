@@ -38,6 +38,10 @@ class ilLeitnerTableGUI extends ilTable2GUI
 	 */
 	protected function fillRow(array $a_set): void
 	{
+        if (!isset($a_set['box'])) {
+            return;
+        }
+        
 		// box title
 		if ($a_set["box"] == 0)
 		{
@@ -49,23 +53,25 @@ class ilLeitnerTableGUI extends ilTable2GUI
 		}
 		
 		// box data
-		$this->tpl->setVariable("CAPACITY", $a_set["capacity"]);
-		$this->tpl->setVariable("COUNT", $a_set["count"]);
-		$this->tpl->setVariable("LAST_TRAINED", ilDatePresentation::formatDate($a_set["last_trained"]));
+		$this->tpl->setVariable("CAPACITY", $a_set["capacity"] ?? 0);
+		$this->tpl->setVariable("COUNT", $a_set["count"] ?? 0);
+        if (isset($a_set["last_trained"])) {
+            $this->tpl->setVariable("LAST_TRAINED", ilDatePresentation::formatDate($a_set["last_trained"]));
+        }
 		
 		// actions
-		if ($a_set["count"])
+		if ($a_set["count"] ?? 0)
 		{
 			$this->ctrl->setParameter($this->parent, "box", $a_set["box"]);
 			$this->tpl->setVariable("LINK_TRAINING", $this->ctrl->getLinkTarget($this->parent,"startTraining"));
 			$this->tpl->setVariable("TXT_TRAINING", $this->plugin->txt("start_training"));
-		}
-		
-		// training alert
-		if ($a_set["count"] >= $a_set["capacity"])
-		{
-			$this->tpl->setVariable("SRC_TRAINING_ALERT", $this->plugin->getImagePath("clock.png"));
-			$this->tpl->setVariable("TXT_TRAINING_ALERT", $this->plugin->txt("training_needed"));
+            
+            // training alert
+            if (($a_set["count"] ?? 0) >= ($a_set["capacity"] ?? 0))
+            {
+                $this->tpl->setVariable("SRC_TRAINING_ALERT", $this->plugin->getImagePath("clock.png"));
+                $this->tpl->setVariable("TXT_TRAINING_ALERT", $this->plugin->txt("training_needed"));
+            }
 		}
 	}
 }

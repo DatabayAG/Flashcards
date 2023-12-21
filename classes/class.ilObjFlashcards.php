@@ -115,10 +115,10 @@ class ilObjFlashcards extends ilObjectPlugin
 			);
 		while ($rec = $this->db->fetchAssoc($set))
 		{
-			$this->setOnline($rec["is_online"]);
-			$this->setGlossaryRefId($rec["glossary_ref_id"]);
-			$this->setGlossaryMode($rec["glossary_mode"]);
-			$this->setInstructions($rec["instructions"]);
+			$this->setOnline($rec["is_online"] ?? false);
+			$this->setGlossaryRefId($rec["glossary_ref_id"] ?? null);
+			$this->setGlossaryMode($rec["glossary_mode"] ?? self::GLOSSARY_MODE_TERM_DEFINITIONS);
+			$this->setInstructions($rec["instructions"] ?? null);
 		}
 		
 		// read the cards of this object
@@ -318,7 +318,7 @@ class ilObjFlashcards extends ilObjectPlugin
 	 */
 	function getCard($card_id)
 	{
-		return $this->cards[$card_id];
+		return $this->cards[$card_id] ?? null;
 	}
 	
 	
@@ -356,7 +356,9 @@ class ilObjFlashcards extends ilObjectPlugin
 			if (!in_array($card->getTermId(), $all_terms))
 			{
 				$card->delete();
-				unset($this->cards[$card_id]);
+				if (isset($this->cards[$card_id])) {
+					unset($this->cards[$card_id]);
+				}
 			}
 			else
 			{

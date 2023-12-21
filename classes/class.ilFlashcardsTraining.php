@@ -119,7 +119,7 @@ class ilFlashcardsTraining
 	 */
 	public function getCardUsage($a_card_id)
 	{
-		return $this->usages[$a_card_id];
+		return $this->usages[$a_card_id] ?? null;
 	}
 	
 	/**
@@ -184,7 +184,7 @@ class ilFlashcardsTraining
 	public function getSessionValue($a_name, $a_default = null)
 	{
 		$this->assignSessionValues();
-		return isset($this->session[$a_name]) ? $this->session[$a_name] : $a_default;
+		return $this->session[$a_name] ?? $a_default;
 	}
 	
 	

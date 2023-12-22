@@ -15,7 +15,7 @@ When you download the Plugin as ZIP file from GitHub, please rename the extracte
 1. Copy the Flashcards directory to your ILIAS installation at the followin path (create subdirectories, if neccessary):
 Customizing/global/plugins/Services/Repository/RepositoryObject/
 2. Go to Administration > Plugins
-3. Click "Update" for the Flashcards plugin
+3. Click "Install" for the Flashcards plugin
 4. Click "Activate" for the Flashcards plugin
 
 There is nothing to configure for this plugin.
@@ -64,6 +64,10 @@ Version History
 * Version 1.5.x for ILIAS 5.4 is in the 'master-ilias54' branch
 * Version 1.6.x for ILIAS 6 is in the 'master-ilias6' branch
 * Version 1.7.x for ILIAS 7 is in the 'main-ilias7' branch
+* Version 1.8.x for ILIAS 8 is in the 'main-ilias8' branch
+
+Version 1.8.0 (2023-12-22)
+* Compatibility with ILIAS 8
 
 Version 1.7.1 (2021-09-17)
 * Compatibility with ILIAS 7

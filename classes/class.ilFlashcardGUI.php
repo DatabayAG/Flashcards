@@ -84,7 +84,7 @@ class ilFlashcardGUI
 		
 		    // get the term page
 		    $term_page = array(	"title" => $this->plugin->txt("glossary_term"),
-                                "html" => $term->getTerm());
+                                "html" => empty($term->getTerm()) ? $this->plugin->txt("card_is_deleted") : $term->getTerm());
         }
         catch (Exception $e) {
             $term_page = array(	"title" => $this->plugin->txt("glossary_term"), 

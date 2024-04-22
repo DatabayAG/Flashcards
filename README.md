@@ -5,7 +5,6 @@ Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universita
 
 **Further maintenance is provided by Databay AG (https://www.databay.de).**
 
-- Author:   Fred Neumann <fred.neumann@ili.fau.de>
 - Forum: http://www.ilias.de/docu/goto_docu_frm_3474_1945.html
 - Bug Reports: http://www.ilias.de/mantis (Choose project "ILIAS plugins" and filter by category "Flashcards")
 
@@ -60,6 +59,8 @@ Train each box as soon as its capacity is reached. You will see that indicated b
 
 Version History
 ===============
+
+Plugin versions for different ILIAS releases are provided in separate branches of this repository.
 
 Version 1.7.1 (2021-09-17)
 * Compatibility with ILIAS 7

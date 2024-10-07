@@ -1,5 +1,5 @@
-ILIAS Flashcards Training plugin
-================================
+# ILIAS Flashcards Training plugin
+
 
 Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universitaet Erlangen-Nuernberg, GPLv2, see LICENSE
 
@@ -8,8 +8,26 @@ Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universita
 - Forum: http://www.ilias.de/docu/goto_docu_frm_3474_1945.html
 - Bug Reports: http://www.ilias.de/mantis (Choose project "ILIAS plugins" and filter by category "Flashcards")
 
-Installation
-------------
+## Note for ILIAS 9
+
+ILIAS 9 has a flashcards functionality in the core glossary object that is very similar to this plugin. The Add-on [FlashcardsConverter](https://github.com/DatabayAG/FlashcardsConverter) for ILIAS 9 is able to convert existing flashcard training objects into glossaries with flashcard presentation, keeping the training state of the users.
+
+If you plan to use this conversion when updating from ILIAS 7 or 8 to ILIAS 9, please follow these steps:
+
+1. Deactivate the plugin in ILIAS 7 but keep it installed
+2. Update ILIAS to ILIAS 8 and the plugin to version 1.8 for ILIAS 8
+3. Deactivate the plugin in ILIAS 8 (or keep it deactivated), but keep it installed
+4. Update to ILIAS 9 (the plugin for ILIAS 8 will be ignored)
+5. Install the [FlashcardsConverter](https://github.com/DatabayAG/FlashcardsConverter)
+6. Do the conversion as described in the add-on
+7. Check the converted objects
+8. Uninstall the plugin, this should remove its database tables
+9. Remove the code of the plugin and the converter
+
+If you want to keep using the Flashcards Training plugin in ILIAS 9 instead, please contact [Databay AG](https://www.databay.de) to get an offer for a plugin update.
+
+## Installation
+
 When you download the Plugin as ZIP file from GitHub, please rename the extracted directory to *Flashcards*
 (remove the branch suffix, e.g. -master).
 
@@ -22,8 +40,8 @@ Customizing/global/plugins/Services/Repository/RepositoryObject/
 
 There is nothing to configure for this plugin.
 
-Usage
------
+## Usage
+
 This plugin provides a training object for glossary contents.
 Therefore you should have glossary with contents avaliable in ILIAS. 
 The contents are trained as flashcards according to the training scheme of Sebasian Leitner.
@@ -57,8 +75,7 @@ Train the cards in the startbox daily.
 
 Train each box as soon as its capacity is reached. You will see that indicated by an icon.
 
-Version History
-===============
+## Version History
 
 Plugin versions for different ILIAS releases are provided in separate branches of this repository.
 

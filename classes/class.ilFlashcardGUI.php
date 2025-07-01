@@ -46,7 +46,7 @@ class ilFlashcardGUI
 	 */
 	function getCardForTrainingHTML()
 	{
-        $this->tpl->addCss(ilObjStyleSheet::getContentStylePath(0));
+        $this->tpl->addCss('assets/css/flashcards.css');
 		
 		// get the card pages to be displayed
 		if ($this->card->getTermId())

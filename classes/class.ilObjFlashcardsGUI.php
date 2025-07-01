@@ -51,9 +51,6 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 	*/
 	function performCommand(string $cmd, ?string $class = null): void
 	{
-		// add addtitonal styles
-		$this->tpl->addCss($this->plugin->getStyleSheetLocation("flashcards.css"));
-		
 		// handling forwards to other classes
 		$next_class = $class ?? $this->ctrl->getNextClass();
 		switch ($next_class)

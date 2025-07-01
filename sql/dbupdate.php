@@ -164,4 +164,8 @@ $ilDB->addTableColumn("rep_robj_xflc_usage", "last_status",
 		$ilDB->manipulate($query);
 	}
 ?>
-
+<#6>
+<?php
+    $query = "UPDATE rep_robj_xflc_data SET glossary_mode =  'def_term' WHERE glossary_mode = 'defs'";
+    $ilDB->manipulate($query);
+?>

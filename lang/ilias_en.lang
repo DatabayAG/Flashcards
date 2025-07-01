@@ -45,8 +45,6 @@ glossary_mode_term_definitions#:#Term - Definitions
 glossary_mode_term_definitions_info#:#The term is shown and its definitions should be remembered.
 glossary_mode_definition_term#:#Definition - Term
 glossary_mode_definition_term_info#:#A definition is shown and the term should be remembered.
-glossary_mode_definitions#:#Definitions
-glossary_mode_definitions_info#:#The first definition is shown as a question. The other definitions have to be remembered.
 instructions#:#Instructions
 instructions_info#:#these istructions are shown to the learner at the starting page of the training.
 count_cards#:#Cards

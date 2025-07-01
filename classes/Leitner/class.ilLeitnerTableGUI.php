@@ -14,6 +14,10 @@
 class ilLeitnerTableGUI extends ilTable2GUI
 {
     protected string $clock = '';
+    protected ilLeitnerTrainingGUI $parent;
+    protected ilFlashcardsPlugin $plugin;
+    protected ilFlashcardsTraining $training;
+
     
 	function __construct($a_parent_gui, $a_parent_cmd)
 	{

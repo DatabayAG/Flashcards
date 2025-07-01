@@ -14,6 +14,15 @@
  */
 class ilFlashcardGUI
 {
+    protected ilFlashcardsTrainingGUI $parent_gui;
+    protected ilObjFlashcards $object;
+    protected ilFlashcardsPlugin $plugin;
+    protected ilFlashcard $card;
+
+    protected ilLanguage $lng;
+    protected ilCtrlInterface $ctrl;
+    protected ilGlobalTemplateInterface $tpl;
+
 	/**
 	 * Constructor
 	 * 
@@ -78,63 +87,39 @@ class ilFlashcardGUI
 	 */
 	function getGlossaryTermPages()
 	{
+        $def_pages = [];
+
         try {
             $term = new ilGlossaryTerm($this->card->getTermId());
-		    $defs = ilGlossaryDefinition::getDefinitionList($term->getId());
-		
+
 		    // get the term page
 		    $term_page = array(	"title" => $this->plugin->txt("glossary_term"),
                                 "html" => empty($term->getTerm()) ? $this->plugin->txt("card_is_deleted") : $term->getTerm());
+
+            $page_gui = new ilGlossaryDefPageGUI($term->getId());
+
+            $def_pages[] = array(  "title" => $this->plugin->txt("glossary_definition"),
+                                   "html" =>  $page_gui->showPage());
         }
         catch (Exception $e) {
+            throw $e;
+
             $term_page = array(	"title" => $this->plugin->txt("glossary_term"), 
                                 "html" => $this->plugin->txt("card_is_deleted"));
-            $defs = [];
+            $def_pages = [];
         }
 
-		// get the definition pages
-		$def_pages = array();
-		$def_title = count($defs) > 1 ? 
-					$this->plugin->txt("glossary_definition_x") :
-					$this->plugin->txt("glossary_definition");
-
-        $i = 1;
-        foreach ($defs as $definition)
-		{
-			$page_gui = new ilPageObjectGUI("gdf", $definition["id"] ?? 0);			
-			$page_gui->setTemplateOutput(false);
-			$page_gui->setOutputMode(ilPageObjectGUI::PRESENTATION);
-			$page_gui->setEnabledTabs(false);
-			
-			$def_pages[] = array( "title" => sprintf($def_title, $i++),
-								   "html" => $page_gui->getHTML());
-		}
-		
 		// return the pages according to the glossary mode
 		switch ($this->object->getGlossaryMode())
 		{
 			case ilObjFlashcards::GLOSSARY_MODE_TERM_DEFINITIONS:
 				return array_merge(array($term_page), $def_pages);
 
-				
 			case ilObjFlashcards::GLOSSARY_MODE_DEFINITION_TERM:
 				return array_merge($def_pages, array($term_page));
-			
-			case ilObjFlashcards::GLOSSARY_MODE_DEFINITIONS:
-                if (empty($def_pages)) {
-                    return array($term_page);
-                }
-                
-				$def_pages[0]["title"] = $this->plugin->txt("question");
-				$answer_title = count($def_pages) > 2 ? 
-								$this->plugin->txt("answer_x") :
-								$this->plugin->txt("answer");
-				for ($i = 1; $i < count($def_pages); $i++)
-				{
-					$def_pages[$i]["title"] = sprintf($answer_title, $i);
-				}
-				return $def_pages;
 		}
+
+        return [];
 	}
 	
 }

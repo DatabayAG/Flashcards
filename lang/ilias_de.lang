@@ -45,8 +45,6 @@ glossary_mode_term_definitions#:#Begriff - Definitionen
 glossary_mode_term_definitions_info#:#Der Begriff wird angezeigt und die Definitionen sind verborgen.
 glossary_mode_definition_term#:#Definition - Begriff
 glossary_mode_definition_term_info#:#Eine Definition wird angezeigt und der Begriff ist verborgen.
-glossary_mode_definitions#:#Definitionen
-glossary_mode_definitions_info#:#Die erste Definition wird als Frage angezeigt. Die weiteren Definitionen sind als Antworten verborgen.
 instructions#:#Anleitung
 instructions_info#:#Diese Anleitung wird den Lernenden auf der Startseite des Trainings angezeigt.
 count_cards#:#Karten

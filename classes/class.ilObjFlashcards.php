@@ -22,11 +22,6 @@ class ilObjFlashcards extends ilObjectPlugin
 	 * Mode: show definition 1 and ask for term
 	 */
 	const GLOSSARY_MODE_DEFINITION_TERM = 'def_term';
-	
-	/**
-	 * Mode: show first definition and ask for others
-	 */
-	const GLOSSARY_MODE_DEFINITIONS = 'defs';
 
 	/**
 	 * online status of the training

@@ -12,11 +12,13 @@
 *
 * @ilCtrl_isCalledBy ilObjFlashcardsGUI: ilRepositoryGUI, ilAdministrationGUI, ilObjPluginDispatchGUI
 * @ilCtrl_Calls ilObjFlashcardsGUI: ilPermissionGUI, ilInfoScreenGUI, ilObjectCopyGUI, ilCommonactionDispatcherGUI
-* @ilCtrl_Calls ilObjFlashcardsGUI: ilPropertyFormGUI, ilPageObjectGUI
+* @ilCtrl_Calls ilObjFlashcardsGUI: ilPropertyFormGUI, ilPageObjectGUI, ilGlossaryDefPageGUI
 *
 */
 class ilObjFlashcardsGUI extends ilObjectPluginGUI
 {
+	protected ilPropertyFormGUI $form;
+
 	/**
 	* Get type.
 	*/
@@ -87,10 +89,12 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 				{
 					$this->tpl->setOnScreenMessage('failure', $this->txt("glossary_not_readable"));
 				}
-
-				$training_gui = new ilLeitnerTrainingGUI($this);
-				$this->ctrl->setReturn($this, "showContent");	
-				$this->ctrl->forwardCommand($training_gui);	
+				else
+				{
+					$training_gui = new ilLeitnerTrainingGUI($this);
+					$this->ctrl->setReturn($this, "showContent");
+					$this->ctrl->forwardCommand($training_gui);
+				}
 				return;	
 
 				
@@ -244,9 +248,6 @@ class ilObjFlashcardsGUI extends ilObjectPluginGUI
 		$rg->addOption(new ilRadioOption($this->txt('glossary_mode_definition_term'),
 								ilObjFlashcards::GLOSSARY_MODE_DEFINITION_TERM,
 								$this->txt('glossary_mode_definition_term_info')));
-		$rg->addOption(new ilRadioOption($this->txt('glossary_mode_definitions'),
-								ilObjFlashcards::GLOSSARY_MODE_DEFINITIONS,
-								$this->txt('glossary_mode_definitions_info')));
 		$this->form->addItem($rg);
 								
 		// instructions

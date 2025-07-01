@@ -10,6 +10,13 @@ Copyright (c) 2017 Institut fuer Lern-Innovation, Friedrich-Alexander-Universita
 
 ## Note for ILIAS 9
 
+When you update from ILIAS 8 to ILIAS 9, please be sure to run the following migrations in the ilias setup:
+
+- glossary.ilGlossaryDefinitionMigration
+- glossary.ilGlossaryCollectionMigration
+
+Otherwise you will get errors when the training pages are shown.
+
 ILIAS 9 has a flashcards functionality in the core glossary object that is very similar to this plugin. The Add-on [FlashcardsConverter](https://github.com/DatabayAG/FlashcardsConverter) for ILIAS 9 is able to convert existing flashcard training objects into glossaries with flashcard presentation, keeping the training state of the users.
 
 If you plan to use this conversion when updating from ILIAS 7 or 8 to ILIAS 9, please follow these steps:

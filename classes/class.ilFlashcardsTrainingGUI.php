@@ -15,11 +15,12 @@ abstract class ilFlashcardsTrainingGUI
 {
 	public ilFlashcardsPlugin $plugin;
 	public ilFlashcardsTraining $training;
-	public ilObjFlashcardsGUI $a_parent_gui;
+	public ilObjFlashcardsGUI $parent_gui;
 	public ilObjFlashcards $object;
 	public ilLanguage $lng;
 	public ilCtrlInterface $ctrl;
 	public ilGlobalTemplateInterface $tpl;
+	public ilObjUser $user;
 	
 	
 	/** 
